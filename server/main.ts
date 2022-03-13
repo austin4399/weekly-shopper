@@ -1,15 +1,11 @@
 import express from 'express';
 import 'dotenv/config'
+import routesv1 from './api/endpoints/v1/routes';
 
 const server = express();
+
 server.use(express.json());
 
-server.get('/test', (req, res) => {
-    res.send(process.env.example);
-})
-
-server.post('/test', (req, res) => {
-    res.send(req.body);
-})
+server.use('/v1', routesv1);
 
 export default server
