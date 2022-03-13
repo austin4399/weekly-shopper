@@ -1,4 +1,4 @@
-import { recipeDocumemt } from '../models/recipe.model';
+import { recipeDocumemt } from './recipe.model';
 
 export interface cartSchema {
     createdAt: Date;
