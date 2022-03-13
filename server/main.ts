@@ -1,5 +1,9 @@
 import 'dotenv/config';
-import express from 'express';
+import express, {
+    Request,
+    Response,
+    NextFunction
+} from 'express';
 import mongoose from 'mongoose';
 import routesv1 from './api/endpoints/v1/routes';
 import dayjs from 'dayjs';
@@ -10,11 +14,15 @@ const dbUri: string = `mongodb+srv://${process.env.mongoUser}:${process.env.mong
 
 mongoose.connect(dbUri)
     .then(() => {
-        console.info(`[${dayjs()}] Connected to MongoDB`);
+        console.log(`[${dayjs()}] Connected to MongoDB`);
     }).catch(error => {
-        console.error(error);
+        console.warn(error);
     });
 
+server.use((req: Request, res: Response, next: NextFunction) => {
+    console.info(`[${req.method}] ${req.url} ${res.statusCode}`);
+    next();
+    });
 
 server.use(express.json());
 server.use('/v1', routesv1);
