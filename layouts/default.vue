@@ -1,13 +1,28 @@
 <template>
   <v-app dark align = "center">
-    <v-spacer />
-      <v-toolbar-title align = "center">
+    <v-card class ="overflow-hidden">
+      <v-app-bar
+      color="primary"
+      dark
+      shrink-on-scroll
+      src="https://picsum.photos/1920/1080?random"
+      scroll-target="#scrolling-techniques-2"
+      >
+       <template v-slot:img="{ props }">
+        <v-img
+          v-bind="props"
+          gradient="to top right, rgba(19,84,122,.5), rgba(128,208,199,.8)"
+        ></v-img>
+      </template>
+      <v-app-bar-title class="flex flex-center" align = "center">
          Weekly shopper
-      </v-toolbar-title>
+
+      </v-app-bar-title>
+      </v-app-bar>
+
+    </v-card>
     <v-main>
-      <v-container>
         <Nuxt />
-      </v-container>
     </v-main>
   </v-app>
 </template>
