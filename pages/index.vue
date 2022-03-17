@@ -20,7 +20,7 @@
 <!-- food calculator -->
 <v-spacer></v-spacer>
 <div class ="d-flex d-inline-flex flex-center" align = "center">
-   <v-card class="d-flex d-inline-flex" shrink = "auto">
+   <v-card class="d-flex" shrink = "auto">
   <v-col>
   <script async src="https://spendsmart.wpengine.com/calculator/init.js"></script>
   <div id="sses-calculator" class="d-flex d-flex-centered" data-calculatordata></div>
