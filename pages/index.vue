@@ -19,40 +19,90 @@
 </div>
 <!-- food calculator -->
 <v-spacer></v-spacer>
-<div class ="d-flex d-inline-flex flex-center" align = "center">
-   <v-card class="d-flex" shrink = "auto">
+<div class ="flex-row d-flex d-inline-flex flex-center" color="primary" justify="space-around" align = "center">
+  <v-card class="flex-colum d-flex justify-start" justify = "start" id = "first-card" width="400">
+            <span class="text-h5">Menu</span>
+          <v-spacer></v-spacer>
+          <v-menu
+            bottom
+            left
+          >
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn
+                dark
+                icon
+                v-bind="attrs"
+                v-on="on"
+              >
+                <v-icon>mdi-dots-vertical</v-icon>
+              </v-btn>
+            </template>
+
+            <v-list>
+              <v-list-item>
+                <v-list-item-title> recipes </v-list-item-title>
+              </v-list-item>
+            </v-list>
+          </v-menu>
+  </v-card>
+   <v-card class="flex-column d-flex" shrink = "auto">
   <v-col>
   <script async src="https://spendsmart.wpengine.com/calculator/init.js"></script>
   <div id="sses-calculator" class="d-flex d-flex-centered" data-calculatordata></div>
   </v-col>
   </v-card>
-  <!-- <v-card class="d-flex text-white">
+   <v-card class="flex-colum d-flex justify-start overflow-hidden" justify = "start" id = "first-card" width="400">
+            <span class="text-h5">Menu</span>
+          <v-spacer></v-spacer>
+          <v-menu
+            bottom
+            left
+          >
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn
+                dark
+                icon
+                v-bind="attrs"
+                v-on="on"
+              >
+                <v-icon>mdi-dots-vertical</v-icon>
+              </v-btn>
+            </template>
 
-  <v-card v-for="cards in recipeCards"
+            <v-list>
+              <v-list-item>
+                <v-list-item-title> recipes </v-list-item-title>
+              </v-list-item>
+            </v-list>
+          </v-menu>
+        </v-card>
+        </div>
+  <!-- <v-card v-for="cards in recipeCards"
   :key="cards"
-  :id="recipeCards.id"
-  height = 200
-  class="text-white"
+  height = "500"
+  width="500"
+  class="d-flex text-white"
   >
   <v-title>
     {{recipeCards.title}}
   </v-title>
     <v-subtitle>
-      {{recipeCards.randomRecipe}}
+      {{ recipeCards.decription}} @{{ recipeCards.title}}
     </v-subtitle>
     <v-card-actions>
       {{recipeCards.description}}
     </v-card-actions>
-</v-card>
-  </v-card> -->
-
-
-</div>
+</v-card> -->
 </v-main>
 </template>
 <style>
 #wheel-txt{
   color: black
+}
+#first-card{
+  padding: 0.5em;
+  margin: 0.5em;
+  justify-content: left;
 }
 </style>
 
@@ -60,17 +110,17 @@
 export default {
   name: 'IndexPage',
   layout:'default',
-  data(){
-    return{
-    recipeCards: [{
-          id: "random-rec",
-          title: "Random Recipes",
-          description: "randomized recipes for you to choose from",
-          class: "bg-primary text-white"
-        ,
-    }
-    ]
-  }
-}
+  data: () => ({
+        recipeCards: [{
+            title: "Random Recipes",
+            id: "Random",
+            description: "Pick and choose a random recipe from our list of recipes",
+          },
+          {
+            title: "Pick from our selection of recipes",
+            id: "List",
+            description: "Choose a recipe from our list of recipes, we hope you enjoy!"
+          }]
+  })
 };
 </script>
