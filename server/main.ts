@@ -12,7 +12,7 @@ const server = express();
 
 const dbUri: string = `mongodb+srv://${process.env.mongoUser}:${process.env.mongoPassword}@dev.ivzgx.mongodb.net/dev`;
 
-mongoose.connect(dbUri)
+mongoose.connect(dbUri, { ssl: true, sslValidate: false})
     .then(() => {
         console.log(`[${dayjs()}] Connected to MongoDB`);
     }).catch(error => {
