@@ -1,6 +1,7 @@
 import express, {Request, Response, Express} from 'express';
 import validateResource from '../../middleware/validateResource';
 import { createRecipeSchema } from '../../schema/recipe.schema';
+import { createRecipeHandler } from '../../controller/recipe.controller'
 
 const router = express.Router();
 
@@ -16,9 +17,10 @@ router.get('/connect', async (req: Request, res: Response) => {
     res.send('connected to mongo');
 })
 
-router.post('/recipe', async (req: Request, res: Response) => {
+router.post(
+    '/recipe',
     validateResource(createRecipeSchema),
-    res.send('niiiiiiice');
-})
+    createRecipeHandler
+    )
 
 export default router

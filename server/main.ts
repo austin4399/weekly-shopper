@@ -18,7 +18,7 @@ mongoose.connect(dbUri, { ssl: true, sslValidate: false})
     }).catch(error => {
         console.warn(error);
     });
-
+server.use(express.urlencoded({ extended: false }))
 server.use((req: Request, res: Response, next: NextFunction) => {
     console.info(`[${req.method}] ${req.url} ${res.statusCode}`);
     next();
