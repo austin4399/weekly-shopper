@@ -33,6 +33,7 @@ export async function findRecipe(
 // Get the count of all users
 export async function findRandomRecipe(){
   try {
+      let randomRecipe: any = ''
       RecipeModel.count().exec(function(err: any, count: number) {
       
       // Get a random entry
@@ -42,11 +43,17 @@ export async function findRandomRecipe(){
       RecipeModel.findOne().skip(random).exec(
         function (err, result) {
           // Tada! random user
-          console.log(result) 
+          randomRecipe = result
         })
-    })   
+    })
+    return randomRecipe;   
   } catch (e: any) {
     throw new Error(e);
   }
 
+}
+
+export async function findRandomRecipeTest(size: number){
+  const result = RecipeModel.aggregate([{ $sample: { size: size } }]);
+  return result;
 }

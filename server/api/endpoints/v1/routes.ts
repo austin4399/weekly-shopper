@@ -2,6 +2,7 @@ import express, {Request, Response, Express} from 'express';
 import validateResource from '../../middleware/validateResource';
 import { createRecipeSchema } from '../../schema/recipe.schema';
 import { createRecipeHandler } from '../../controller/recipe.controller'
+import { findRandomRecipeTest } from '../../service/recipe.service';
 
 const router = express.Router();
 
@@ -24,5 +25,8 @@ router.post(
     validateResource(createRecipeSchema),
     createRecipeHandler
     )
-
+router.get('/random', async (req: Request, res: Response) =>{
+   const randomRecipe = await findRandomRecipeTest(1);
+   res.send(randomRecipe);
+})
 export default router
