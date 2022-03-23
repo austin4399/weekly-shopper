@@ -15,4 +15,4 @@ const validate = (schema: AnyZodObject) =>
         }
     };
 
-    export default validate;
+export default validate;
