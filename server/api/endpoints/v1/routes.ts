@@ -5,6 +5,8 @@ import { createRecipeHandler } from '../../controller/recipe.controller'
 
 const router = express.Router();
 
+router.get('healthcheck', (req: Request, res: Response) => res.sendStatus(200));
+
 router.get('/test', (req: Request, res: Response) => {
     res.send('test endpoint');
 })
