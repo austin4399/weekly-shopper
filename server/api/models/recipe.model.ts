@@ -1,10 +1,15 @@
 import mongoose from 'mongoose';
 import ingredientSchema from './ingredient.model';
 import { IngredientDocument } from './ingredient.model';
-export interface recipeDocumemt extends mongoose.Document {
+
+export interface RecipeInput {
     title: string;
     description: string;
     ingredients: [IngredientDocument];
+}
+export interface recipeDocumemt extends RecipeInput, mongoose.Document {
+    createdAt: Date;
+    updatedAt: Date;
 }
 
 const recipeSchema = new mongoose.Schema({
