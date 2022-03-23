@@ -1,9 +1,13 @@
 import mongoose from 'mongoose';
 
-export interface IngredientDocument extends mongoose.Document {
-    name: string;
+export interface IngredientInput extends mongoose.Document {
+    title: string;
     description: string;
-    type: string;
+    ingredients: [IngredientDocument];
+}
+export interface IngredientDocument extends IngredientInput, mongoose.Document {
+    createdAt: Date;
+    updatedAt: Date;
 }
 
 const ingredientSchema = new mongoose.Schema({
@@ -28,4 +32,4 @@ const ingredientSchema = new mongoose.Schema({
 
 const IngredientModel = mongoose.model<IngredientDocument>("Ingredients", ingredientSchema);
 
-export default ingredientSchema;
+export default IngredientModel;
