@@ -1,5 +1,5 @@
 <template>
-  <v-main>
+  <v-main id="main-container" shrink class="overflow-hidden">
     <div class="bg-transparent col" align="center">
       <!-- will add pictures to parallax when i figure out how to load static files  -->
 
@@ -8,6 +8,8 @@
         class="overflow-hidden"
         src="https://picsum.photos/1900/1080?random"
         align="center"
+        id="parallax"
+        shrink
       >
         <v-row align="center" class="d-flex flex-center text-black">
           <v-col align="inherit" id="wheel-txt">
@@ -20,13 +22,14 @@
     <!-- food calculator -->
     <v-spacer></v-spacer>
     <div
-      class="flex-row d-flex d-inline-flex flex-center"
+      class="flex-row d-flex d-inline-flex flex-center overflow-hidden"
       color="primary"
       justify="space-around"
       align="center"
+      id="card-container"
     >
       <v-card
-        class="blue-grey lighten-5 flex-colum d-flex justify-start black--text"
+        class="blue-grey lighten-5 flex-colum d-flex justify-start black--text overflow-hidden"
         justify="start"
         id="first-card"
         width="400"
@@ -52,7 +55,7 @@
           </v-list>
         </v-menu>
       </v-card>
-      <v-card class="flex-column d-flex" shrink="auto">
+      <v-card class="flex-column d-flex overflow-hidden" shrink="auto">
         <v-col>
           <script
             async
@@ -117,6 +120,23 @@
   padding: 0.5em;
   margin: 0.5em;
   justify-content: left;
+}
+@media screen and (max-width: 400px){
+    #main-container{
+      display: flex;
+      size: auto;
+      overflow: hidden;
+    }
+    #parallax{
+      display: flex;
+      size: auto;
+      overflow: hidden;
+    }
+    #card-container{
+      display: flex;
+      size: auto;
+      overflow: hidden;
+    }
 }
 </style>
 
