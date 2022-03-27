@@ -36,9 +36,7 @@
       >
         <span class="text-h5">
           <!-- generated list of recipes  -->
-          <v-icon large color="black">
-            mdi-format-list-bulleted
-          </v-icon>
+          <v-icon large color="black"> mdi-format-list-bulleted </v-icon>
         </span>
         <v-spacer></v-spacer>
         <v-menu bottom left>
@@ -68,31 +66,6 @@
           ></div>
         </v-col>
       </v-card>
-      <v-card
-        class="blue-grey lighten-5 flex-colum d-flex justify-start overflow-hidden"
-        justify="start"
-        id="first-card"
-        width="400"
-      >
-        <span class="text-h5 black--text" align="center">
-          <!-- random list of recipes -->
-          <v-icon large color="black"> mdi-all-inclusive </v-icon>
-        </span>
-        <v-spacer></v-spacer>
-        <v-menu bottom left>
-          <template v-slot:activator="{ on, attrs }">
-            <v-btn dark icon v-bind="attrs" v-on="on">
-              <v-icon class="black--text">mdi-dots-vertical</v-icon>
-            </v-btn>
-          </template>
-
-          <v-list>
-            <v-list-item>
-              <v-list-item-title> recipes </v-list-item-title>
-            </v-list-item>
-          </v-list>
-        </v-menu>
-      </v-card>
     </div>
     <!-- <v-card v-for="cards in recipeCards"
   :key="cards"
@@ -121,46 +94,48 @@
   margin: 0.5em;
   justify-content: left;
 }
-@media screen and (max-width: 400px){
-    #main-container{
-      display: flex;
-      size: auto;
-      overflow: hidden;
-    }
-    #parallax{
-      display: flex;
-      size: auto;
-      overflow: hidden;
-    }
-    #card-container{
-      display: flex;
-      size: auto;
-      overflow: hidden;
-    }
+@media screen and (max-width: 400px) {
+  #main-container {
+    display: flex;
+    size: auto;
+    overflow: hidden;
+  }
+  #parallax {
+    display: flex;
+    size: auto;
+    overflow: hidden;
+  }
+  #card-container {
+    display: flex;
+    size: auto;
+    overflow: hidden;
+  }
 }
 </style>
 
 <script>
-import { mdiAllInclusiveBox } from '@mdi/js';
+import { mdiAllInclusiveBox } from '@mdi/js'
+import RandomRecipe from '../components/RandomRecipe.vue'
 export default {
   name: 'IndexPage',
   layout: 'default',
   data() {
-  return {
+    return {
       recipeCards: [
-      {
-        title: 'Random Recipes',
-        id: 'Random',
-        description: 'Pick and choose a random recipe from our list of recipes',
-      },
-      {
-        title: 'Pick from our selection of recipes',
-        id: 'List',
-        description:
-          'Choose a recipe from our list of recipes, we hope you enjoy!',
-      },
-    ],
-  }
-}
+        {
+          title: 'Random Recipes',
+          id: 'Random',
+          description:
+            'Pick and choose a random recipe from our list of recipes',
+        },
+        {
+          title: 'Pick from our selection of recipes',
+          id: 'List',
+          description:
+            'Choose a recipe from our list of recipes, we hope you enjoy!',
+        },
+      ],
+    }
+  },
 }
 </script>
