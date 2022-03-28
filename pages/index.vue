@@ -13,6 +13,7 @@
         <v-tab left class="flex flex-between" to="/weeklycart">
           <v-icon class="pa-md-sm"> mdi-cart-outline </v-icon>
         </v-tab>
+              <!-- path to other pages -->
         <v-tab v-for="link in links" :key="link" :to="link.to">
           {{ link.name }}
         </v-tab>
@@ -34,34 +35,40 @@
               <!--  -->
             </v-sheet>
           </v-col>
-          <v-col cols="12" sm="4" align="center">
-            <v-sheet rounded="lg" class="flex flex-center">
-              <v-card
-                class="blue-grey lighten-5 flex-colum d-flex justify-start overflow-hidden pa-md"
-                justify="start"
-                id="first-card"
-              >
-                <span class="text-h5 black--text" align="center">
-                  <!-- random list of recipes -->
-                  <v-icon large color="black"> mdi-all-inclusive </v-icon>
-                </span>
-                <v-spacer></v-spacer>
-                <v-menu bottom left>
-                  <template v-slot:activator="{ on, attrs }">
-                    <v-btn dark icon v-bind="attrs" v-on="on">
-                      <v-icon class="black--text">mdi-dots-vertical</v-icon>
-                    </v-btn>
-                  </template>
-
-                  <v-list>
-                    <v-list-item>
-                      <v-list-item-title> recipes </v-list-item-title>
-                    </v-list-item>
-                  </v-list>
-                </v-menu>
-              </v-card>
-              <!---->
-            </v-sheet>
+          <v-col>
+            <v-bottom-sheet
+            v-model="sheet"
+            inset
+            >
+      <template v-slot:activator="{ on, attrs }">
+        <v-btn
+          color="grey darken-1"
+          dark
+          v-bind="attrs"
+          v-on="on"
+        >
+          Open Calculator
+        </v-btn>
+      </template>
+      <v-sheet
+        class="text-center"
+        height="auto"
+        persistent
+      >
+        <v-btn
+          class="mt-6"
+          text
+          color="error"
+          @click="sheet = !sheet"
+        >
+          close
+        </v-btn>
+        <div class="my-3">
+          <script async src="https://spendsmart.wpengine.com/calculator/init.js"></script>
+          <div id="sses-calculator" class="sses-calculator" data-calculatordata></div>
+        </div>
+      </v-sheet>
+    </v-bottom-sheet>
           </v-col>
         </v-row>
       </v-container>
@@ -89,20 +96,6 @@ export default {
   layout: 'none',
   data() {
     return {
-      recipeCards: [
-        {
-          title: 'Random Recipes',
-          id: 'Random',
-          description:
-            'Pick and choose a random recipe from our list of recipes',
-        },
-        {
-          title: 'Pick from our selection of recipes',
-          id: 'List',
-          description:
-            'Choose a recipe from our list of recipes, we hope you enjoy!',
-        },
-      ],
       links: [{
         name: "Random Recipe List",
         to: "/weeklycart",
