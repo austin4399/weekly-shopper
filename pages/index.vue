@@ -3,12 +3,12 @@
     <v-app-bar app color="flex flex-between grey darken-1" flat rounded id="inspire">
       <div
         :color="
-          $vuetify.breakpoint.smAndDown ? 'light-grey darken-3' : 'transparent'
+          $vuetify.breakpoint.smAndDown ? 'light-grey lighten-3' : 'transparent'
         "
         size="32"
       >
       </div>
-      <v-tabs grow centered class="ml-n9" color="black darken-1">
+      <v-tabs grow centered class="ml-n9" color="black darken-1" id="hover">
               <!-- path to weekly cart -->
         <v-tab left class="flex flex-between" to="/weeklycart">
           <v-icon class="pa-md-sm"> mdi-cart-outline </v-icon>
@@ -70,6 +70,9 @@
 </template>
 
 <style>
+#hover:hover {
+  background-color: grey;
+}
 @media screen and (max-width: 400px) {
   #main-container {
     display: flex;
