@@ -13,7 +13,7 @@ export const createRecipeSchema = object({
       required_error: "Title is required",
     }),
     description: string().min(6, "Description must be at least 6 characters long"),
-    ingredients: array(ingredientSchema)
+    ingredients: array(ingredientSchema).min(1, "At least one ingredient is required"),
   }),
 });
 
