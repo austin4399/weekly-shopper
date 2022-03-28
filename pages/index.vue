@@ -1,19 +1,24 @@
 <template>
   <v-app id="inspire">
-    <v-app-bar app color="flex flex-between grey darken-1" flat rounded id="inspire">
+    <v-app-bar
+      app
+      color="flex flex-between grey darken-1"
+      flat
+      rounded
+      id="inspire"
+    >
       <div
         :color="
           $vuetify.breakpoint.smAndDown ? 'light-grey lighten-3' : 'transparent'
         "
         size="32"
-      >
-      </div>
+      ></div>
       <v-tabs grow centered class="ml-n9" color="black darken-1" id="hover">
-              <!-- path to weekly cart -->
+        <!-- path to weekly cart -->
         <v-tab left class="flex flex-between" to="/weeklycart">
           <v-icon class="pa-md-sm"> mdi-cart-outline </v-icon>
         </v-tab>
-              <!-- path to other pages -->
+        <!-- path to other pages -->
         <v-tab v-for="link in links" :key="link" :to="link.to">
           {{ link.name }}
         </v-tab>
@@ -36,39 +41,28 @@
             </v-sheet>
           </v-col>
           <v-col>
-            <v-bottom-sheet
-            v-model="sheet"
-            inset
-            >
-      <template v-slot:activator="{ on, attrs }">
-        <v-btn
-          color="grey darken-1"
-          dark
-          v-bind="attrs"
-          v-on="on"
-        >
-          Open Calculator
-        </v-btn>
-      </template>
-      <v-sheet
-        class="text-center"
-        height="auto"
-        persistent
-      >
-        <v-btn
-          class="mt-6"
-          text
-          color="error"
-          @click="sheet = !sheet"
-        >
-          close
-        </v-btn>
-        <div class="my-3">
-          <script async src="https://spendsmart.wpengine.com/calculator/init.js"></script>
-          <div id="sses-calculator" class="sses-calculator" data-calculatordata></div>
-        </div>
-      </v-sheet>
-    </v-bottom-sheet>
+            <v-bottom-sheet v-model="sheet" inset>
+              <template v-slot:activator="{ on, attrs }">
+                <v-btn color="grey darken-1" dark v-bind="attrs" v-on="on">
+                  Open Calculator
+                </v-btn>
+              </template>
+              <v-sheet class="text-center" height="auto" persistent>
+                <v-btn class="mt-6" text color="error" @click="sheet = !sheet">
+                </v-btn>
+                <div class="my-3">
+                  <script
+                    async
+                    src="https://spendsmart.wpengine.com/calculator/init.js"
+                  ></script>
+                  <div
+                    id="sses-calculator"
+                    class="sses-calculator"
+                    data-calculatordata
+                  ></div>
+                </div>
+              </v-sheet>
+            </v-bottom-sheet>
           </v-col>
         </v-row>
       </v-container>
@@ -96,16 +90,18 @@ export default {
   layout: 'none',
   data() {
     return {
-      links: [{
-        name: "Random Recipe List",
-        to: "/weeklycart",
-        id: "ran-rec"
-      },
-      {
-        name: "Ordered Recipes",
-        to: "/weeklycart",
-        id: "ordered-rec"
-      }]
+      links: [
+        {
+          name: 'Random Recipe List',
+          to: '/weeklycart',
+          id: 'ran-rec',
+        },
+        {
+          name: 'Ordered Recipes',
+          to: '/weeklycart',
+          id: 'ordered-rec',
+        },
+      ],
     }
   },
 }
