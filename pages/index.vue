@@ -1,8 +1,13 @@
 <template>
-    <v-main align="center"class="grey lighten-3" style="height: 100%;">
+    <v-main class="grey lighten-2" style="height: 100%;">
       <v-container>
-        <v-row align-content-lg="center" class="flex flex-center" id="pic-container" >
-          <v-col class="align-content-lg" cols="12" sm="8" align="center">
+        <v-row class="d-flex justify-center">
+          <p
+            class="text-h5 black--text pa-md-2 ma-lg-5"
+          >Welcome to weekly shopper</p>
+        </v-row>
+        <v-row class="d-flex justify-center">
+          <v-col cols="12" sm="8" align="center">
             <v-sheet rounded="lg" class="flex flex-center justify-center">
               <v-img src="https://picsum.photos/1900/1080"> </v-img>
             </v-sheet>
@@ -13,12 +18,10 @@
             <v-bottom-sheet v-model="sheet" inset>
               <template v-slot:activator="{ on, attrs }">
                 <v-col align="center">
-                  <v-btn
-                    color="grey darken-1"
-                    fab
-                    large
-                    dark
-                    v-bind="attrs"
+                  <v-btn 
+                    color="deep-orange darken-1" 
+                    dark 
+                    v-bind="attrs" 
                     v-on="on"
                   >
                   <v-icon>
