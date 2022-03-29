@@ -1,34 +1,42 @@
 <template>
-    <v-main class="grey lighten-3" style="height: 100%;">
+    <v-main align="center"class="grey lighten-3" style="height: 100%;">
       <v-container>
-        <v-row>
-          <v-col cols="12" sm="8" align="center">
+        <v-row align-content-lg="center" class="flex flex-center" id="pic-container" >
+          <v-col class="align-content-lg" cols="12" sm="8" align="center">
             <v-sheet rounded="lg" class="flex flex-center justify-center">
               <v-img src="https://picsum.photos/1900/1080"> </v-img>
             </v-sheet>
           </v-col>
+        </v-row>
+        <v-row>
           <v-col>
             <v-bottom-sheet v-model="sheet" inset>
               <template v-slot:activator="{ on, attrs }">
                 <v-col align="center">
-                  <v-btn 
-                    color="grey darken-1" 
-                    dark 
-                    v-bind="attrs" 
+                  <v-btn
+                    color="grey darken-1"
+                    fab
+                    large
+                    dark
+                    v-bind="attrs"
                     v-on="on"
                   >
-                    Open Calculator
+                  <v-icon>
+                    mdi-calculator
+                  </v-icon>
                   </v-btn>
                 </v-col>
-                
+
               </template>
               <v-sheet class="text-center" height="auto" persistent>
-                <v-btn 
-                  class="mt-6" 
-                  text 
-                  color="error" 
+                <v-btn
+                  class="mt-6"
+                  fab
+                  dark
+                  large
+                  color="error"
                   @click="sheet = !sheet">
-                </v-btn>
+                  </v-btn>
                 <div class="my-3">
                   <script
                     async
@@ -47,6 +55,12 @@
       </v-container>
     </v-main>
 </template>
+<style>
+#pic-container {
+  align-content: center;
+  display: flex;
+}
+</style>
 
 <script lang="ts">
 import Vue from 'vue'
