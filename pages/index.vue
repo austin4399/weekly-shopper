@@ -78,12 +78,24 @@ export default class IndexPage extends Vue {
 // still waiting on new api-key
 async function producePrice() {
   try {
-    const res = await axios.get('https://grocerybear.com/getitems', {
-      data: { city: 'Portland', product: 'meat', num_days: 7 },
-      headers: {
-        'Content-Type': 'application/json',
-        'Api-Key': '123ABC',
+    const res = await axios.get("https://api.edamam.com/api/food-database/v2/parser", {
+      params: {
+        app_id : 'a477c607',
+        app_key :'b3d03a0454201b92de94a5a6165da6bc',
+        ingr : 'bacon',
+        nutritiontype : 'logging',
+        category: 'generic-foods',
+        calories: '100-500'
+    },
+      data: {
       },
+      headers: {
+        'Accept': 'application/json',
+        'Access-Control': 'Allow-Origin',
+        'status':200
+      },
+    }).then(data => {
+      console.log(data);
     })
   } catch (Error) {
     console.log(Error)
