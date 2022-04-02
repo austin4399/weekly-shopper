@@ -2,12 +2,10 @@
   <v-main align="center" class="grey lighten-3" style="height: 100%">
     <v-container>
       <v-row
-        align-content-lg="center"
-        class="flex flex-center"
         id="pic-container"
       >
-        <v-col class="align-content-lg" cols="12" sm="8" align="center">
-          <v-sheet rounded="lg" class="flex flex-center justify-center">
+        <v-col class="mx-auto" cols="12" sm="8">
+          <v-sheet rounded="lg">
             <v-img src="https://picsum.photos/1900/1080"> </v-img>
           </v-sheet>
         </v-col>
