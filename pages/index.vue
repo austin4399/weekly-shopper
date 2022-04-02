@@ -1,87 +1,103 @@
 <template>
-  <v-row justify="center" align="center">
-    <v-col cols="12" sm="8" md="6">
-      <v-card class="logo py-4 d-flex justify-center">
-        <NuxtLogo />
-        <VuetifyLogo />
-      </v-card>
-      <v-card>
-        <v-card-title class="headline">
-          Welcome to the Vuetify + Nuxt.js template
-        </v-card-title>
-        <v-card-text>
-          <p>
-            Vuetify is a progressive Material Design component framework for
-            Vue.js. It was designed to empower developers to create amazing
-            applications.
-          </p>
-          <p>
-            For more information on Vuetify, check out the
-            <a
-              href="https://vuetifyjs.com"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              documentation </a
-            >.
-          </p>
-          <p>
-            If you have questions, please join the official
-            <a
-              href="https://chat.vuetifyjs.com/"
-              target="_blank"
-              rel="noopener noreferrer"
-              title="chat"
-            >
-              discord </a
-            >.
-          </p>
-          <p>
-            Find a bug? Report it on the github
-            <a
-              href="https://github.com/vuetifyjs/vuetify/issues"
-              target="_blank"
-              rel="noopener noreferrer"
-              title="contribute"
-            >
-              issue board </a
-            >.
-          </p>
-          <p>
-            Thank you for developing with Vuetify and I look forward to bringing
-            more exciting features in the future.
-          </p>
-          <div class="text-xs-right">
-            <em><small>&mdash; John Leider</small></em>
-          </div>
-          <hr class="my-3" />
-          <a
-            href="https://nuxtjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Nuxt Documentation
-          </a>
-          <br />
-          <a
-            href="https://github.com/nuxt/nuxt.js"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Nuxt GitHub
-          </a>
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer />
-          <v-btn color="primary" nuxt to="/inspire"> Continue </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-col>
-  </v-row>
+  <v-main align="center" class="grey lighten-3" style="height: 100%">
+    <v-container>
+      <v-row
+        id="pic-container"
+      >
+        <v-col class="mx-auto" cols="12" sm="8">
+          <v-sheet rounded="lg">
+            <v-img src="https://picsum.photos/1900/1080"> </v-img>
+          </v-sheet>
+        </v-col>
+        <v-col>
+          <v-bottom-sheet v-model="sheet" inset>
+            <template v-slot:activator="{ on, attrs }">
+              <v-col>
+                <v-sheet
+                  class="light text-center"
+                  color="transparent"
+                  backround="translucent"
+                  height="auto"
+                >
+                  <v-btn
+                    color="grey darken-1"
+                    fab
+                    large
+                    v-bind="attrs"
+                    v-on="on"
+                  >
+                    <v-icon> mdi-calculator </v-icon>
+                  </v-btn>
+                </v-sheet>
+              </v-col>
+            </template>
+            <div class="my-3">
+              <script
+                async
+                src="https://spendsmart.wpengine.com/calculator/init.js"
+              ></script>
+              <div
+                id="sses-calculator"
+                class="sses-calculator"
+                data-calculatordata
+              ></div>
+            </div>
+          </v-bottom-sheet>
+        </v-col>
+      </v-row>
+    </v-container>
+  </v-main>
 </template>
+<style>
+#pic-container {
+  align-content: center;
+  display: flex;
+}
+@media screen and (max-width: 399) {
+  #pic-container {
+    font-size: medium;
+  }
+}
+</style>
 
-<script>
-export default {
-  name: 'IndexPage',
+<script lang="ts">
+import { response } from 'express'
+import axios from 'axios'
+import Vue from 'vue'
+import { Component } from 'vue-property-decorator'
+@Component({})
+export default class IndexPage extends Vue {
+  mounted() {
+    producePrice()
+  }
+}
+
+//  outside of class
+// still waiting on new api-key
+async function producePrice() {
+  try {
+    const res = await axios.get("https://api.edamam.com/api/food-database/v2/parser", {
+      params: {
+        app_id : 'a477c607',
+        app_key :'b3d03a0454201b92de94a5a6165da6bc',
+        ingr : 'bacon',
+        nutritiontype : 'logging',
+        category: 'generic-foods',
+        calories: '100-500'
+    },
+      data: {
+      },
+      headers: {
+        'Accept': 'application/json',
+        'Access-Control': 'Allow-Origin',
+        'status':200
+      },
+    }).then(data => {
+      console.log(data);
+    })
+  } catch (Error) {
+    console.log(Error)
+  }
+  // sheet: boolean = false;
 }
 </script>
