@@ -6,8 +6,6 @@ import { findRandomRecipeTest } from '../../service/recipe.service';
 
 const router = express.Router();
 
-router.get('/healthcheck', (req: Request, res: Response) => res.sendStatus(200));
-
 router.get('/recipe', findRecipeHander)
 
 router.post(
