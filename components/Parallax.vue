@@ -1,4 +1,4 @@
-<template>
+  <template>
   <v-parallax src="~assets/mealwheel.jpg" height="500" width="auto">
     <v-row>
       <v-col align = "center" class = "text-white">
@@ -18,6 +18,7 @@
 <script>
 export default {
   name: 'Parallax'
+
 }
 </script>
 
