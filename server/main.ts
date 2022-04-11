@@ -25,6 +25,9 @@ server.use((req: Request, res: Response, next: NextFunction) => {
     });
 
 server.use(express.json());
+
+
+server.get('/healthcheck', (req: Request, res: Response) => res.sendStatus(200));
 server.use('/v1', routesv1);
 
 export default server
