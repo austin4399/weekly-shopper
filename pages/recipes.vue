@@ -1,65 +1,45 @@
 <template>
-  <v-main style="height: 100%" class="grey lighten-2">
-    <v-row class="d-flex align-end">
-      <v-col class="col-4"> </v-col>
-      <v-col>
-        <v-autocomplete
-          id="search"
-          dense
-          filled
-          rounded
-          class="white ma-md-10 text--black"
-        ></v-autocomplete>
-      </v-col>
-    </v-row>
-
-    <v-expansion-panels inset>
-      <v-expansion-panel
-        v-for="recipe in recipes"
-        :key="recipe"
-        class="grey lighten-1"
-      >
-        <v-expansion-panel-header>
-          {{ recipe.title }}
-        </v-expansion-panel-header>
-        <v-expansion-panel-content>
-          <v-data-table
-            dense
-            :headers="headers"
-            :items="recipe"
-            item-key="title"
-            class="grey"
-          >
-            <template v-slot:item.ingredients="{ item }">
-              <v-card
-                v-for="(props, index) in item.ingredients"
-                :key="index"
-                class="ma-md-2 elevation-0 grey"
-              >
-                <div v-for="prop in props" :key="prop">
-                  {{ prop }}
-                </div>
-              </v-card>
-            </template>
-          </v-data-table>
-          {{ recipe }}
-        </v-expansion-panel-content>
-      </v-expansion-panel>
-    </v-expansion-panels>
-  </v-main>
+  <v-card>
+    <v-card-title>
+      <v-text-field
+        v-model="search"
+        append-icon="mdi-magnify"
+        label="Search"
+        single-line
+        hide-details
+      ></v-text-field>
+    </v-card-title>
+    <v-data-table
+       v-for="recipe in recipes"
+      :key="recipe"
+      :headers="headers"
+      :items="recipe"
+      :search="search"
+    >
+     <template v-slot:expanded-item="{ header, items }">
+      <td :colspan="item.length">
+        More info about {{ recipe.ingredients }}
+      </td>
+      </template>
+    </v-data-table>
+  </v-card>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
 import { Component } from 'vue-property-decorator'
 import axios from 'axios'
-
+import { data } from 'browserslist'
 @Component({})
 export default class RecipesPage extends Vue {
   mounted() {
     this.getRecipe()
   }
-
+  data(){
+    return {
+      search: ''
+    }
+  }
   recipes: any = []
 
   async getRecipe(): Promise<void> {
@@ -71,16 +51,52 @@ export default class RecipesPage extends Vue {
       console.log(error)
     }
   }
-
+  expanded = []
+  singleExpand = false
+  search = ''
   headers = [
     { text: 'description', value: 'description' },
     // { text: 'ID', value: '_id' },
     { text: 'Created at', value: 'createdAt' },
     { text: 'updated At', value: 'updatedAt' },
     { text: 'Ingredients', value: 'ingredients' },
+    { text: '', value: 'data-table-expand '}
     // { text: 'title', value: 'title' },
   ]
-}
+  // data (){
+  //   return {
+  //     dialog: false,
+  //     dialogDelete: false,
+  //     newItem: {
+  //       title: '',
+  //       description: '',
+  //       ingredients: ''
+  //     }
+  //   }
+  // },
+  // computed: {
+  //   formTitle () {
+  //     return this.editedIndex === -1? 'New Recipe'
+  //   },
+  // },
+  // editedIndex: number = -1,
+  //     save () {
+  //       if (this.editedIndex > -1) {
+  //         Object.assign(this.recipes[this.editedIndex], this.newItem)
+  //       } else {
+  //         this.recipes.push(this.newItem)
+  //       }
+  //       this.close()
+  //     },
+  //     watch: {
+  //     dialog (val) {
+  //       val || this.close()
+  //     },
+  //     dialogDelete (val) {
+  //       val || this.closeDelete()
+  //     },
+  //   },
+};
 </script>
 
 <style lang="css">

@@ -2,16 +2,22 @@
   <v-main align="center" class="grey lighten-3" style="height: 100%">
     <v-container>
       <v-row
+        align-content-lg="center"
+        class="flex flex-center"
         id="pic-container"
       >
-        <v-col class="mx-auto" cols="12" sm="8">
-          <v-sheet rounded="lg">
+        <v-col class="align-content-lg" cols="12" sm="8" align="center">
+          <v-sheet rounded="lg" class="flex flex-center justify-center">
             <v-img src="https://picsum.photos/1900/1080"> </v-img>
           </v-sheet>
         </v-col>
         <v-col>
           <v-bottom-sheet v-model="sheet" inset>
+            <template v-slot:[`item.actions`]= "{ item }">
+
+            </template>
             <template v-slot:activator="{ on, attrs }">
+
               <v-col>
                 <v-sheet
                   class="light text-center"
@@ -68,13 +74,13 @@ import { Component } from 'vue-property-decorator'
 @Component({})
 export default class IndexPage extends Vue {
   mounted() {
-    producePrice()
+    produceCalories()
   }
 }
 
 //  outside of class
 // still waiting on new api-key
-async function producePrice() {
+async function produceCalories() {
   try {
     const res = await axios.get("https://api.edamam.com/api/food-database/v2/parser", {
       params: {
@@ -83,7 +89,7 @@ async function producePrice() {
         ingr : 'bacon',
         nutritiontype : 'logging',
         category: 'generic-foods',
-        calories: '100-500'
+        calories: '0-700'
     },
       data: {
       },
