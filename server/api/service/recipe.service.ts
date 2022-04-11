@@ -17,11 +17,11 @@ export async function findRecipe(
   query: FilterQuery<RecipeDocument>,
   options: QueryOptions = { lean: true }
 ) {
-  const metricsLabels = {operation: "findProduct",};
+  const metricsLabels = {operation: "findRecipe",};
 
   // const timer = databaseResponseTimeHistogram.startTimer();
   try {
-    const result = await RecipeModel.findOne(query, {}, options);
+    const result = await RecipeModel.find(query, {}, options);
     // timer({ ...metricsLabels, success: "true" });
     return result;
   } catch (e: any) {
