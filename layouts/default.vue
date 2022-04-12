@@ -1,8 +1,9 @@
 <template>
   <v-app>
-    <v-app-bar app color="grey darken-1">
-      <v-row class="ml-sm">
-        <p>Weekly shopper</p>
+    <v-app-bar app color="secondary">
+      <v-row class="ml-sm" justify="center">
+        <v-icon>mdi-cart</v-icon>
+        <h2 class="font-weight-light">Weekly shopper</h2>
       </v-row>
     </v-app-bar>
 
@@ -10,7 +11,7 @@
       <Nuxt />
     </v-main>
 
-    <v-bottom-navigation v-model="tab" :background-color="color" dark shift>
+    <v-bottom-navigation v-model="tab" background-color="secondary" shift>
       <v-btn v-for="link in links" :key="link" :to="link.to">
         <span>{{link.name}}</span>
         <v-icon>{{link.icon}}</v-icon>
