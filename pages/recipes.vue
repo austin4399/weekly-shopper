@@ -1,5 +1,5 @@
 <template>
-  <v-main class="grey lighten-3" style="height: 100%">
+  <v-main class="neutral" style="height: 100%">
     <v-card class="grey lighten-1 pa-sm-2 ma-sm-4">
       <v-card-title>
         <v-text-field
@@ -13,10 +13,18 @@
 
       <v-data-iterator :items="recipes" :search="search">
         <template v-slot:header>
-          <v-toolbar class="mb-2" color="indigo darken-5" dark flat>
+          <v-toolbar class="mb-2" color="primary" dark flat>
+            <!-- form button -->
+            <v-col class="d-flex flex-between" align="right">
+
+         <v-btn  outlined color="white" fab small class="align-right" rounded @click="dialogState = !dialogState">
+           <v-icon>
+           mdi-plus
+         </v-icon>
+         </v-btn>
+         </v-col>
             <v-toolbar-title>This is a header</v-toolbar-title>
             <v-spacer></v-spacer>
-            <v-btn @click="dialogState = !dialogState">Add Recipe</v-btn>
           </v-toolbar>
         </template>
 
@@ -72,43 +80,69 @@
             </v-col>
           </v-row>
         </template>
-
         <template v-slot:footer>
-          <v-toolbar class="mt-2" color="indigo" dark flat>
+          <v-toolbar class="mt-2" color="primary" dark flat>
             <v-toolbar-title class="subheading">
               This is a footer
             </v-toolbar-title>
           </v-toolbar>
         </template>
       </v-data-iterator>
-    </v-card>
-
-    <v-dialog v-model="dialogState">
+      <v-dialog v-model="dialogState">
       <v-card>
-        <h1>Add new recipe</h1>
+        <v-card-title class="align-center" align="center">
+          Add a recipe
+        </v-card-title>
         <v-form @submit.prevent="createRecipe()">
-          <v-row>
-            <input
-            type="text"
-            placeholder="Title"
-            v-model="createRecipeForm.title"
-          />
-          </v-row>
-          <v-row>
-            <input
-            type="text"
-            placeholder="Description"
-            v-model="createRecipeForm.description"
-          />
-          </v-row>
-          <v-row>
+          <v-card-text>
+            <v-container>
+              <v-row>
+                <v-col cols="12" sm="6" md="4">
+                  <v-text-field
+                    type="text"
+                    placeholder="Title"
+                    v-model="createRecipeForm.title"
+                    hint="title for your recipe"
+                    required
+                  />
+                </v-col>
+                <v-col cols="12" sm="6" md="4">
+                  <v-text-field
+                    type="text"
+                    placeholder="Description"
+                    v-model="createRecipeForm.description"
+                    hint="description for your recipe"
+                    required
+                  />
+                </v-col>
+                <v-col cols="12" md="4" sm="6">
+                  <v-text-field
+                    type="text"
+                    placeholder="Ingredients"
+                    v-model="createRecipeForm.ingredients"
+                    hint="Ingredients for your recipe"
+                    required
+                  />
+                </v-col>
+                <v-col cols="12" md="4" sm="6">
+                  <v-text-field
+                  type="text"
+                  placeholder="Created At"
+                  >
+                  </v-text-field>
+                 </v-col>
+              </v-row>
+            </v-container>
+          </v-card-text>
+          <v-spacer></v-spacer>
+          <v-card-actions>
             <v-btn type="submit"> Submit </v-btn>
-
             <v-btn @click="dialogState = !dialogState">Cancel</v-btn>
-          </v-row>
+          </v-card-actions>
         </v-form>
       </v-card>
     </v-dialog>
+    </v-card>
   </v-main>
 </template>
 
@@ -164,14 +198,13 @@ export default class RecipesPage extends Vue {
     try {
       const endpoint = '/api/v1/recipe'
       const response = await axios.post(endpoint, this.createRecipeForm)
-      if(response.status == 200){
+      if (response.status == 200) {
         this.dialogState = false
         this.getRecipe()
       }
     } catch (error) {
       console.log(error)
     }
-
   }
 }
 </script>
