@@ -1,5 +1,5 @@
 <template>
-  <v-main class="grey lighten-3" style="height: 100%">
+  <v-main class="neutral" style="height: 100%">
     <v-card class="grey lighten-1 pa-sm-2 ma-sm-4">
       <v-card-title>
         <v-text-field
@@ -13,10 +13,9 @@
 
       <v-data-iterator :items="recipes" :search="search">
         <template v-slot:header>
-          <v-toolbar class="mb-2" color="indigo darken-5" dark flat>
+          <v-toolbar class="mb-2" color="primary" dark flat>
             <v-toolbar-title>This is a header</v-toolbar-title>
             <v-spacer></v-spacer>
-            <v-btn @click="dialogState = !dialogState">Add Recipe</v-btn>
           </v-toolbar>
         </template>
 
@@ -74,7 +73,7 @@
         </template>
 
         <template v-slot:footer>
-          <v-toolbar class="mt-2" color="indigo" dark flat>
+          <v-toolbar class="mt-2" color="primary" dark flat>
             <v-toolbar-title class="subheading">
               This is a footer
             </v-toolbar-title>
@@ -82,33 +81,48 @@
         </template>
       </v-data-iterator>
     </v-card>
+    <v-row justify="center">
+      <v-dialog v-model="dialogState" max-width="800px">
+        <v-card class="neutral">
+          <v-card-title> Add a new recipe </v-card-title>
+          <v-card-text>
+            <v-container>
+              <v-row>
+                <v-col>
+                  <v-text-field
+                    label="Title"
+                    color="accent"
+                    required
+                    hint="Please give your recipe a name"
+                  ></v-text-field>
+                </v-col>
+              </v-row>
+              <v-row>
+                <v-col>
+                  <v-textarea
+                    label="Description"
+                    color="accent"
+                    required
+                    hint="Please give your recipe a description"
+                  ></v-textarea>
+                </v-col>
+              </v-row>
 
-    <v-dialog v-model="dialogState">
-      <v-card>
-        <h1>Add new recipe</h1>
-        <v-form @submit.prevent="createRecipe()">
-          <v-row>
-            <input
-            type="text"
-            placeholder="Title"
-            v-model="createRecipeForm.title"
-          />
-          </v-row>
-          <v-row>
-            <input
-            type="text"
-            placeholder="Description"
-            v-model="createRecipeForm.description"
-          />
-          </v-row>
-          <v-row>
-            <v-btn type="submit"> Submit </v-btn>
+              <v-card-actions>
+                  <v-btn @click="dialogState = !dialogState">Cancel</v-btn>
+                  <v-spacer></v-spacer>
+                  <v-btn type="submit"> Submit </v-btn>
 
-            <v-btn @click="dialogState = !dialogState">Cancel</v-btn>
-          </v-row>
-        </v-form>
-      </v-card>
-    </v-dialog>
+              </v-card-actions>
+            </v-container>
+          </v-card-text>
+        </v-card>
+      </v-dialog>
+    </v-row>
+
+    <v-btn fab bottom left @click="dialogState = !dialogState">
+      <v-icon color="primary"> mdi-plus </v-icon>
+    </v-btn>
   </v-main>
 </template>
 
@@ -164,14 +178,13 @@ export default class RecipesPage extends Vue {
     try {
       const endpoint = '/api/v1/recipe'
       const response = await axios.post(endpoint, this.createRecipeForm)
-      if(response.status == 200){
+      if (response.status == 200) {
         this.dialogState = false
         this.getRecipe()
       }
     } catch (error) {
       console.log(error)
     }
-
   }
 }
 </script>
