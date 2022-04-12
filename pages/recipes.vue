@@ -88,8 +88,8 @@
           </v-toolbar>
         </template>
       </v-data-iterator>
-      <v-dialog v-model="dialogState">
-      <v-card>
+      <v-dialog class="ma-sm-2 pa-md-2" v-model="dialogState">
+      <v-card class="ma-sm-2 pa-md-2">
         <v-card-title class="align-center" align="center">
           Add a recipe
         </v-card-title>
