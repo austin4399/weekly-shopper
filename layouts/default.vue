@@ -1,20 +1,22 @@
 <template>
   <v-app>
-    <v-app-bar app color="secondary">
-      <v-row class="ml-sm" justify="center">
+    <v-app-bar dense app color="secondary">
+      <v-row justify="center">
         <v-icon>mdi-cart</v-icon>
         <h2 class="font-weight-light">Weekly shopper</h2>
       </v-row>
     </v-app-bar>
 
     <v-main>
-      <Nuxt />
+      <v-col class="align-stretch">
+        <Nuxt />
+      </v-col>
     </v-main>
 
-    <v-bottom-navigation v-model="tab" background-color="secondary" shift>
+    <v-bottom-navigation v-model="tab" fixed background-color="secondary">
       <v-btn v-for="link in links" :key="link" :to="link.to">
-        <span>{{link.name}}</span>
-        <v-icon>{{link.icon}}</v-icon>
+        <span>{{ link.name }}</span>
+        <v-icon>{{ link.icon }}</v-icon>
       </v-btn>
     </v-bottom-navigation>
   </v-app>
@@ -41,13 +43,7 @@ export default class DefaultLayout extends Vue {
       name: 'Cart',
       to: '/weeklycart',
       icon: 'mdi-cart-outline',
-    }
+    },
   ]
-  color: string = 'grey darken-1'
-  tab: number = 0;
-  clipped: boolean = false
-  drawer: boolean = false
-  fixed: boolean = false
 }
-
 </script>
