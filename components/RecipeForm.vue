@@ -57,7 +57,7 @@
               <v-card-actions>
                 <v-row class="ma-sm-2 pa-sm-2 justify-space-between">
                   <v-btn type="submit"> Submit </v-btn>
-                  <v-btn @click="dialogState = !dialogState">Cancel</v-btn>
+                  <v-btn @click="close">Cancel</v-btn>
                 </v-row>
               </v-card-actions>
               <div>
@@ -97,9 +97,11 @@
 <script lang='ts'>
 
 import {Component, Prop, Vue} from 'vue-property-decorator';
+import {mapState, mapMutations} from 'vuex';
 
-@Component({components:{}})
+@Component({
+    computed: mapState(['recipeDialog']),
+    methods: {...mapMutations(['close'])},
+})
 export default class RecipeForm extends Vue {
-    @Prop()
-    dialogState!: boolean;
 }
