@@ -106,7 +106,32 @@
                     <v-text-field
                       type="text"
                       placeholder="Ingredients"
-                      v-model="createRecipeForm.ingredients"
+                      v-model="createRecipeForm.ingredients.name"
+                      hint="Ingredients for your recipe"
+                      required
+                    />
+                    <v-file-input
+                    accept="img/png, image/jpeg, image/bmp">
+
+                    </v-file-input>
+                    <v-text-field
+                      type="text"
+                      placeholder="Ingredients"
+                      v-model="createRecipeForm.ingredients.description"
+                      hint="Ingredients for your recipe"
+                      required
+                    />
+                    <v-text-field
+                      type="text"
+                      placeholder="Ingredients"
+                      v-model="createRecipeForm.ingredients.type"
+                      hint="Ingredients for your recipe"
+                      required
+                    />
+                    <v-text-field
+                      type="number"
+                      placeholder="cost"
+                      v-model="createRecipeForm.ingredients.cost"
                       hint="Ingredients for your recipe"
                       required
                     />
@@ -145,12 +170,13 @@ import Vue from 'vue'
 import { Component } from 'vue-property-decorator'
 import axios from 'axios'
 import { data } from 'browserslist'
+import { number } from 'zod'
 
 type Ingredients = {
   name: string
   description: string
   type: string
-  cost: number
+  cost: string
 }
 
 type Recipe = {
@@ -164,16 +190,22 @@ export default class RecipesPage extends Vue {
   mounted() {
     this.getRecipe()
     this.pageLoading = false
+    this.produceCalories()
   }
   pageLoading = true
   recipes: any = []
   search: string = ''
   dialogState: boolean = false
-
+  cost = number
   createRecipeForm: Recipe = {
     title: '',
     description: '',
-    ingredients: [],
+    ingredients: [{
+      name: '',
+      description: '',
+      type: '',
+      cost: ''
+    }],
   }
   async getRecipe(): Promise<void> {
     try {
@@ -200,6 +232,31 @@ export default class RecipesPage extends Vue {
       }
     } catch (error) {
       console.log(error)
+    }
+  }
+  async produceCalories(): Promise<void>{
+  try {
+    const res = await axios.get("https://api.edamam.com/api/food-database/v2/parser", {
+      params: {
+        app_id : 'a477c607',
+        app_key :'b3d03a0454201b92de94a5a6165da6bc',
+        ingr : `${this.recipes.title}`,
+        nutritiontype : 'logging',
+        category: 'generic-foods',
+        calories: '0-700'
+    },
+      data: {
+      },
+      headers: {
+        'Accept': 'application/json',
+        'Access-Control': 'Allow-Origin',
+        'status':200
+      },
+    }).then(data => {
+      console.log(data);
+    })
+  } catch (Error) {
+    console.log(Error)
     }
   }
 }
