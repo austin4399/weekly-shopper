@@ -13,9 +13,6 @@
         </v-col>
         <v-col>
           <v-bottom-sheet v-model="sheet" inset>
-            <template v-slot:[`item.actions`]= "{ item }">
-
-            </template>
             <template v-slot:activator="{ on, attrs }">
 
               <v-col>
