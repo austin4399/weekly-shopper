@@ -13,7 +13,7 @@
       </v-col>
     </v-main>
 
-    <v-bottom-navigation v-model="tab" fixed background-color="secondary">
+    <v-bottom-navigation fixed background-color="secondary">
       <v-btn v-for="link in links" :key="link" :to="link.to">
         <span>{{ link.name }}</span>
         <v-icon>{{ link.icon }}</v-icon>
