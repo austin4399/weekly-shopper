@@ -70,6 +70,7 @@ import Vue from 'vue'
 import { Component } from 'vue-property-decorator'
 @Component({})
 export default class IndexPage extends Vue {
+  sheet: boolean = false;
   mounted() {
     produceCalories()
   }
