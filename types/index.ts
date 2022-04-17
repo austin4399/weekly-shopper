@@ -20,7 +20,7 @@ export type Ingredients = {
     name: string
     description: string
     type: string
-    cost: string
+    cost: number | null
 }
 
 export type Recipe = {
