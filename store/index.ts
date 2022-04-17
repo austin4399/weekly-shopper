@@ -8,18 +8,20 @@ export const state = () => ({
   recipeFormDialog: false,
 })
 
-// getters
-export const getters: GetterTree<State, State> = {
-  recipeFormDialog: (state: State) => {state.recipeFormDialog},
-}
-
 // mutations
-export const mutations = {
-  open(state: State): void {
+export const mutations: MutationTree<State> = {
+  OPEN (state: State): void {
     state.recipeFormDialog = true
   },
-  close(state: State): void {
+  CLOSE (state: State): void {
     state.recipeFormDialog = false
+  },
+}
+
+// getters
+export const getters: GetterTree<State, State> = {
+  getRecipeFormDialogState: (state) => {
+      return state.recipeFormDialog
   },
 }
 
