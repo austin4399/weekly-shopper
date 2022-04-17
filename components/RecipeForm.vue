@@ -97,7 +97,7 @@
 <script lang='ts'>
 
 import {Component, Prop, Vue} from 'vue-property-decorator';
-import {Recipe, Ingredients} from '@/pages/recipes.vue';
+import {Recipe, Ingredients} from '@/types';
 @Component
 export default class RecipeForm extends Vue {
   createRecipeForm: Recipe = {
