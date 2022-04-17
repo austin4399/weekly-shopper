@@ -97,11 +97,17 @@
 <script lang='ts'>
 
 import {Component, Prop, Vue} from 'vue-property-decorator';
-import {mapState, mapMutations} from 'vuex';
-
-@Component({
-    computed: mapState(['recipeDialog']),
-    methods: {...mapMutations(['close'])},
-})
+import {Recipe, Ingredients} from '@/pages/recipes.vue';
+@Component
 export default class RecipeForm extends Vue {
+  createRecipeForm: Recipe = {
+    title: '',
+    description: '',
+    ingredients: [{
+      name: '',
+      description: '',
+      type: '',
+      cost: ''
+    }],
+  }
 }
