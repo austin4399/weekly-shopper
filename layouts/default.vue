@@ -14,7 +14,7 @@
     </v-main>
 
     <v-bottom-navigation fixed background-color="secondary">
-      <v-btn v-for="link in links" :key="link" :to="link.to">
+      <v-btn v-for="link in links" :key="link.name" :to="link.to">
         <span>{{ link.name }}</span>
         <v-icon>{{ link.icon }}</v-icon>
       </v-btn>
