@@ -28,3 +28,5 @@ export type Recipe = {
     description: string
     ingredients: Ingredients[]
 }
+
+export type Cart = Recipe[];
