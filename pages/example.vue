@@ -1,13 +1,16 @@
 <template>
   <div>
-    <h1>Hello Mo and Austin how are yall</h1>
+    {{recipeFormDialog}}
   </div>
 </template>
 
-<script>
-export default {
-  layout: 'example',
+<script lang='ts'>
+
+import {Component, Prop, Vue} from 'vue-property-decorator';
+import {Getter} from 'vuex-class';
+
+@Component({})
+export default class ExamplePage extends Vue {
+  @Getter recipeFormDialog!: boolean;
 }
 </script>
-
-<style></style>
