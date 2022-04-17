@@ -74,7 +74,7 @@
           </v-row>
           <v-textarea label="Description" outlined class="mt-3"> </v-textarea>
 
-          <v-rating v-model="rating" hover size="18">
+          <v-rating v-model="createRecipeForm.cost" hover size="18">
             <template v-slot:item="props">
               <v-icon
                 large
@@ -103,11 +103,13 @@ export default class RecipeForm extends Vue {
   createRecipeForm: Recipe = {
     title: '',
     description: '',
-    ingredients: [{
-      name: '',
-      description: '',
-      type: '',
-      cost: ''
-    }],
+    ingredients: [
+      {
+        name: '',
+        description: '',
+        type: '',
+        cost: ''
+      }
+    ],
   }
 }
