@@ -171,19 +171,7 @@ import { Component } from 'vue-property-decorator'
 import axios from 'axios'
 import { data } from 'browserslist'
 import { number } from 'zod'
-
-type Ingredients = {
-  name: string
-  description: string
-  type: string
-  cost: string
-}
-
-type Recipe = {
-  title: string
-  description: string
-  ingredients: Ingredients[]
-}
+import {Recipe, Ingredients} from '@/types'
 
 @Component({})
 export default class RecipesPage extends Vue {

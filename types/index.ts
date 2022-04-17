@@ -15,3 +15,16 @@ export interface RecipeDocument extends RecipeInput, Document {
     createdAt: Date;
     updatedAt: Date;
 }
+
+export type Ingredients = {
+    name: string
+    description: string
+    type: string
+    cost: string
+}
+
+export type Recipe = {
+    title: string
+    description: string
+    ingredients: Ingredients[]
+}
