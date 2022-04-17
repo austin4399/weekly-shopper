@@ -1,22 +1,34 @@
-interface State {
-    recipeDialog: boolean;
-}
+import { GetterTree, ActionContext, MutationTree } from 'vuex'
+
+
+export type State = ReturnType<typeof state>
 
 // state
 export const state = () => ({
-    recipeDialog: false
+  recipeFormDialog: false,
 })
-// getts
-export const getters = {
 
+// getters
+export const getters: GetterTree<State, State> = {
+  recipeFormDialog: (state: State) => {state.recipeFormDialog},
 }
-// actions
-export const actions = {
-    
-}
+
 // mutations
 export const mutations = {
-    open(state: State, payload: boolean) {
-        state.recipeDialog = payload
-    }
+  open(state: State): void {
+    state.recipeFormDialog = true
+  },
+  close(state: State): void {
+    state.recipeFormDialog = false
+  },
+}
+
+// actions
+export const actions = {
+  openRecipeFormDialog(context: ActionContext<State, State>): void {
+    context.commit('open')
+  },
+  closeRecipeFormDialog(context: ActionContext<State, State>): void {
+    context.commit('close')
+  },
 }
