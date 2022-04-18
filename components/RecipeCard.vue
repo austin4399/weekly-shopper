@@ -49,11 +49,14 @@
     </div>
 </template>
 
-<script lang='ts'>
+<script lang="ts">
 import {Component, Prop, Vue} from 'vue-property-decorator';
 import {Recipe} from '@/types'
 
-@Component({})
-export default class RecipeCard extends Vue {
-    @Prop() recipe!: Recipe;
-}
+@Component({
+    props: {
+        recipe: {type: Object as () => Recipe, required: true}
+    },
+})
+export default class RecipeCard extends Vue {}
+</script>
