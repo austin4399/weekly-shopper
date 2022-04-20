@@ -80,32 +80,33 @@
             </v-row>
           </template>
         </v-data-iterator>
-        <v-dialog v-model="dialogState">
-          <v-card class="pa-md-2">
-            <v-card-title class="align-center" align="center">
+        <v-dialog class="pa-sm-3 form-card" v-model="dialogState">
+          <v-card class="pa-sm-2">
+            <v-card-title class="form-card-content pa-md-3 align-center" align="center">
               Add a recipe
             </v-card-title>
               <v-form>
                 <v-card-text>
                   <v-container>
                     <v-col>
-                    
+
                     </v-col>
                   </v-container>
                 </v-card-text>
                 <div>
                   <v-row>
-                    <v-text-field label="Ingredient"> </v-text-field>
+                    <v-text-field class="form-card-contnet pa-md-3" label="Ingredient"> </v-text-field>
                     <v-select
                       :items="['Vegetable', 'Fruit', 'Dairy', 'Meat', 'Other']"
                       solo
                       small-chips
                       style="width: 35vw"
                       label="Type"
+                      class="pa-md-3 mr-sm-1"
                     >
                     </v-select>
                   </v-row>
-                  <v-textarea label="Description" outlined class="mt-3"> </v-textarea>
+                  <v-textarea label="Description" outlined class="form-card-content mt-3"> </v-textarea>
 
                   <v-rating hover size="18">
                     <template v-slot:item="props">
@@ -120,8 +121,8 @@
                     </template>
                   </v-rating>
                 <v-row class="ma-sm-2 pa-sm-2 justify-space-between">
-                  <v-btn type="submit"> Submit </v-btn>
-                  <v-btn @click="dialogState = false">Cancel</v-btn>
+                  <v-btn class="form-card-content" type="submit"> Submit </v-btn>
+                  <v-btn class="form-card-content" @click="dialogState = false">Cancel</v-btn>
                 </v-row>
               </div>
             </v-form>
@@ -239,5 +240,18 @@ export default class RecipesPage extends Vue {
 }
 #floating-action-button {
   bottom: 80px;
+}
+@media screen and (max-width :400px){
+    .form-card{
+      height: 100%;
+      width: auto;
+      padding: 0.5em
+    }
+    .form-card-content{
+      font-size: 1.5em;
+      padding: 0.5em;
+      margin: 0.5em;
+
+    }
 }
 </style>
