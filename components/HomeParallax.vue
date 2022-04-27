@@ -48,7 +48,7 @@
           smooth
         >
           <template v-slot:label="item">
-            {{ item.value }}
+            {{ item.recs }}
           </template>
         </v-sparkline>
       </v-sheet>
@@ -87,8 +87,8 @@
               height="auto"
               style="padding-top: 0%;"
             >
-              <v-btn color="grey darken-1" fab large v-bind="attrs" v-on="on">
-                <v-icon> mdi-calculator </v-icon>
+              <v-btn color="secondary" fab large v-bind="attrs" v-on="on">
+                <v-icon class="grey--text" style="backround: grey darken-3;"> mdi-calculator </v-icon>
               </v-btn>
             </v-sheet>
           </v-col>
@@ -115,21 +115,12 @@ import axios from 'axios';
 @Component({
   components: {},
   mounted(){
-    getRecipes()
+
   }
 })
 export default class HomeParallax extends Vue {
   value =
    [0, 2, 5, 9, 5, 10, 3, 5, 0, 0, 1, 8, 2, 9, 0]
-
-}
-async function getRecipes(){
-  try{
-  const endpoint = '/api/v1/recipes'
-  const recipeCall = await axios.get(endpoint)
-  const totalRecipes = every(recipeCall)
-}
-  catch(error){}
 }
 </script>
 

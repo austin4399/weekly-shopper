@@ -2,7 +2,7 @@
   <v-main
     align="center"
     class="main-container"
-    style="height: 100vh; position: relative; padding-top: 0%;"
+    style="height: 100%; position: relative; padding-top: 0%;"
   >
   <HomeParallax> </HomeParallax>
   </v-main>
@@ -19,12 +19,8 @@
   padding-right: 3%;
   padding-top: 0%
 }
-#pic-container {
-  align-content: center;
-  display: flex;
-}
 @media screen and (max-width: 399) {
-  #pic-container {
+  .main-container {
     font-size: medium;
   }
 }

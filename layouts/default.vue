@@ -1,9 +1,9 @@
 <template>
-  <v-app>
-    <v-app-bar dense app color="secondary">
-      <v-row justify="center">
-        <v-icon>mdi-cart</v-icon>
-        <h2 class="font-weight-light">Weekly shopper</h2>
+  <v-app class="app-container">
+    <v-app-bar dense app color="secondary" class="app-bar">
+      <v-row justify="center" align="center">
+          <v-icon>mdi-cart</v-icon>
+            <h2 class="font-weight-light">Weekly shopper</h2>
       </v-row>
     </v-app-bar>
 
@@ -13,7 +13,7 @@
       </v-col>
     </v-main>
 
-    <v-bottom-navigation fixed background-color="secondary">
+    <v-bottom-navigation fixed background-color="secondary" class="app-bar">
       <v-btn v-for="link in links" :key="link.name" :to="link.to">
         <span>{{ link.name }}</span>
         <v-icon>{{ link.icon }}</v-icon>
@@ -47,3 +47,27 @@ export default class DefaultLayout extends Vue {
   ]
 }
 </script>
+<style>
+.app-bar{
+  display: flex;
+  align-items: center;
+  position: absolute;
+  padding: 0.5em;
+}
+.app-container{
+  overflow: hidden;
+  align-items: center;
+  content: flex;
+  position: relative;
+}
+@media screen and (max-width: 399px) {
+  .app-bar{
+    display: flex;
+    size: auto;
+    height: 100%;
+    width: auto;
+    position: relative;
+    align-items: center;
+  }
+}
+</style>

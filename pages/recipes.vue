@@ -1,7 +1,7 @@
 <template>
   <div>
-    <div v-if="pageLoading == false">
-      <v-card class="grey lighten-2">
+    <div v-if="pageLoading == false" class="pa-md-4 mx-lg-auto">
+      <v-card class="pa-md-4 mx-lg-auto grey lighten-2" >
         <v-card-title>
           <v-text-field
             v-model="search"
@@ -35,18 +35,14 @@
             </v-row>
           </template>
         </v-data-iterator>
-        <v-dialog class="pa-sm-3 form-card" v-model="dialogState">
-          <v-card class="pa-sm-2">
+        <v-container fluid>
+           <v-dialog class="form-card" v-model="dialogState">
+          <v-card class="form-card-content">
             <v-card-title class="form-card-content pa-md-3 align-center" align="center">
               Add a recipe
             </v-card-title>
               <v-form>
                 <v-card-text>
-                  <v-container>
-                    <v-col>
-
-                    </v-col>
-                  </v-container>
                 </v-card-text>
                 <div>
                   <v-row>
@@ -83,6 +79,7 @@
             </v-form>
           </v-card>
         </v-dialog>
+        </v-container>
       </v-card>
       <v-btn
         id="floating-action-button"
@@ -109,13 +106,19 @@ import { number } from 'zod'
 import {Recipe} from '@/types'
 import {mapMutations, mapState} from 'vuex'
 import RecipeCard from '@/components/RecipeCard.vue'
+import { data } from 'browserslist'
 
 @Component({
   components: {
     RecipeCard
   },
+  data(){
+    return{
+      isMobile: false
+    }
+  },
   methods: {
-    ...mapMutations(['OPEN', 'CLOSE'])
+    ...mapMutations(['OPEN', 'CLOSE']),
   }
 })
 export default class RecipesPage extends Vue {
@@ -123,11 +126,20 @@ export default class RecipesPage extends Vue {
     this.getRecipe()
     this.pageLoading = false
     this.produceCalories()
-  }
+  };
+  // breakpoint method
+  // beforeDestroy(){
+  //   if (typeof window === "undefined") {
+  //     window.removeEventListener("resize", this.onResize, {passive:  true})
+  //   }
+  // };
+
+  // isMobile apart of breakpoint
+
+  dialogState: boolean = false
   pageLoading = true
   recipes: any = []
   search: string = ''
-  dialogState: boolean = false
   cost = number
   createRecipeForm: Recipe = {
     title: '',
@@ -190,6 +202,7 @@ export default class RecipesPage extends Vue {
     }
   }
 }
+
 </script>
 
 <style lang="css">
@@ -203,12 +216,18 @@ export default class RecipesPage extends Vue {
     .form-card{
       height: 100%;
       width: auto;
-      padding: 0.5em
+      padding: 0.5em;
+      position: relative;
+      min-height: 100%;
+      min-width: 100%;
+      overflow: hidden;
+      display: flex;
+      top: 50%;
+      left: 50%;
+
     }
     .form-card-content{
-      font-size: 1.5em;
-      padding: 0.5em;
-      margin: 0.5em;
+      position: absolute;
 
     }
 }
