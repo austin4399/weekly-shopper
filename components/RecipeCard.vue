@@ -1,7 +1,7 @@
 <template>
-    <div>
-        <v-card class="grey lighten-3 black--text">
-            <v-card-title class="subheading font-weight-bold pa-md-8">
+    <div class="d-flex space-between">
+        <v-card class="secondary black--text font-weight-light">
+            <v-card-title class="subheading font-weight-light pa-md-8">
                 <v-row>
                     {{ recipe.title }}
                     <v-spacer></v-spacer>

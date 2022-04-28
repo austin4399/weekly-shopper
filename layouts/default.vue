@@ -1,9 +1,9 @@
 <template>
   <v-app class="app-container">
-    <v-app-bar dense app color="secondary" class="app-bar">
+    <v-app-bar dense app color="secondary" align="center" style="align-items:center;" class="app-bar">
       <v-row justify="center" align="center">
           <v-icon>mdi-cart</v-icon>
-            <h2 class="font-weight-light">Weekly shopper</h2>
+            <h2  style="align-items: center;" class="font-weight-light">Weekly shopper</h2>
       </v-row>
     </v-app-bar>
 
@@ -51,7 +51,6 @@ export default class DefaultLayout extends Vue {
 .app-bar{
   display: flex;
   align-items: center;
-  position: absolute;
   padding: 0.5em;
 }
 .app-container{

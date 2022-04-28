@@ -1,7 +1,7 @@
 <template>
   <div>
     <div v-if="pageLoading == false" class="pa-md-4 mx-lg-auto">
-      <v-card class="pa-md-4 mx-lg-auto grey lighten-2" >
+      <v-card class="pa-md-4 mx-lg-auto grey lighten-3" >
         <v-card-title>
           <v-text-field
             v-model="search"
