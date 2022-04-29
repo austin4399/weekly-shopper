@@ -35,30 +35,34 @@
             </v-row>
           </template>
         </v-data-iterator>
-        <v-container fluid>
-           <v-dialog class="form-card" v-model="dialogState">
-          <v-card class="form-card-content">
-            <v-card-title class="form-card-content pa-md-3 align-center" align="center">
+        <v-container class="d-flex flex-center" fluid>
+           <v-dialog class="" v-model="dialogState">
+          <v-card class="">
+            <v-card-title class="pa-md-3 d-flex flex-center" align="center">
               Add a recipe
             </v-card-title>
               <v-form>
-                <v-card-text>
-                </v-card-text>
-                <div>
-                  <v-row>
-                    <v-text-field class="form-card-contnet pa-md-3" label="Ingredient"> </v-text-field>
+                  <v-row  id="ingredient-container" align="center" class="d-flex flex-center">
+                    <v-col>
+                    <v-text-field id="ingredients" class="-contnet pa-md-3" label="ingredients">  </v-text-field>
+                    </v-col>
+                    <v-col sm="4" md="3">
                     <v-select
-                      :items="['Vegetable', 'Fruit', 'Dairy', 'Meat', 'Other']"
+                      :items="items"
                       solo
                       small-chips
                       style="width: 35vw"
                       label="Type"
                       class="pa-md-3 mr-sm-1"
+                      :v-model="colorPick()"
+                      id="items"
                     >
                     </v-select>
+                    </v-col>
                   </v-row>
-                  <v-textarea label="Description" outlined class="form-card-content mt-3"> </v-textarea>
-
+                  <v-row  id="description-container" class="d-flex flex-center flex-start" align="center">
+                    <v-col>
+                  <v-textarea label="Description" outlined class="mt-3"> </v-textarea>
                   <v-rating hover size="18">
                     <template v-slot:item="props">
                       <v-icon
@@ -71,11 +75,16 @@
                       </v-icon>
                     </template>
                   </v-rating>
-                <v-row class="ma-sm-2 pa-sm-2 justify-space-between">
-                  <v-btn class="form-card-content" type="submit"> Submit </v-btn>
-                  <v-btn class="form-card-content" @click="dialogState = false">Cancel</v-btn>
+                    </v-col>
+                  </v-row>
+                <v-row id="btn-container" class="ma-sm-2 pa-sm-2 justify-space-between">
+                  <v-col>
+                  <v-btn type="submit"> Submit </v-btn>
+                  </v-col>
+                  <v-col>
+                  <v-btn  @click="dialogState = false">Cancel</v-btn>
+                  </v-col>
                 </v-row>
-              </div>
             </v-form>
           </v-card>
         </v-dialog>
@@ -135,12 +144,32 @@ export default class RecipesPage extends Vue {
   // };
 
   // isMobile apart of breakpoint
-
+     colorPick(): any {
+    if (this.items == 'Vegatables'){
+      this.items.style.backgroundColor = 'green'
+    }
+    if (this.items == 'Protein'){
+      this.items.style.backgroundColor = 'red'
+    }
+    if (this.items == 'Fruit'){
+      this.items.style.backgroundColor = 'orange'
+    }
+    if (this.items == 'Dairy'){
+      this.items.style.backgroundColor = 'white'
+    }
+    if (this.items == 'Meat'){
+      this.items.style.backgroundColor = 'red'
+    }
+    if (this.items == 'Other'){
+      this.items.style.backgroundColor = 'grey'
+    }
+  }
   dialogState: boolean = false
   pageLoading = true
   recipes: any = []
   search: string = ''
   cost = number
+  items: any = ['Vegatable', 'Protein', 'Fruit', 'Dairy', 'Meat', 'Other']
   createRecipeForm: Recipe = {
     title: '',
     description: '',
@@ -212,7 +241,10 @@ export default class RecipesPage extends Vue {
 #floating-action-button {
   bottom: 80px;
 }
-@media screen and (max-width :400px){
+#btn-container{
+  display: inline;
+}
+@media screen and (max-width: 700px){
     .form-card{
       height: 100%;
       width: auto;
@@ -229,6 +261,16 @@ export default class RecipesPage extends Vue {
     .form-card-content{
       position: absolute;
 
+    }
+    #ingredient-container{
+      margin: 2%
+    }
+    #description-container{
+      margin: 1%;
+    }
+    #btn-container{
+      margin: 5%;
+      padding: 5%;
     }
 }
 </style>
