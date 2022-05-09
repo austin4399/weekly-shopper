@@ -48,9 +48,9 @@
 
 
 
-                    <v-row v-for="(value, index) in ingredientRows" :key="value" class="ma-md-3" id="ingredient-row">
+                    <v-row v-for="(value, index) in createRecipeForm.ingredients" :key="value" class="ma-md-3" id="ingredient-row">
                       <v-btn v-show="index > 0"
-                        @click="ingredientRows.splice(index, 1)" 
+                        @click="createRecipeForm.ingredients.splice(index, 1)" 
                       >
                         <v-icon class="mr-2">mdi-delete</v-icon>
                       </v-btn>
@@ -159,13 +159,12 @@ export default class RecipesPage extends Vue {
     this.produceCalories()
   };
   addRow(){
-    this.ingredientRows.push({
+    this.createRecipeForm.ingredients.push({
       name: '',
       description: '',
       type: '',
       cost: 0,
     }) 
-    console.log(this.ingredientRows)
   }
   // breakpoint method
   // beforeDestroy(){
