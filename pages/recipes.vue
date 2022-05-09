@@ -42,24 +42,46 @@
               Add a recipe
             </v-card-title>
               <v-form>
-                  <v-row  id="ingredient-container" align="center" class="d-flex flex-center">
-                    <v-col>
-                    <v-text-field id="ingredients" class="-contnet pa-md-3" label="ingredients">  </v-text-field>
-                    </v-col>
-                    <v-col sm="4" md="3">
-                    <v-select
-                      :items="items"
-                      solo
-                      small-chips
-                      style="width: 35vw"
-                      label="Type"
-                      class="pa-md-3 mr-sm-1"
-                      :v-model="colorPick()"
-                      id="items"
-                    >
-                    </v-select>
-                    </v-col>
-                  </v-row>
+                    <v-row class="ma-md-3">
+                      <v-text-field label="Recipe Name" class="pa-md-3" id="ingredients"/>
+                    </v-row>
+
+
+
+                    <v-row v-for="(value, index) in ingredientRows" :key="value" class="ma-md-3" id="ingredient-row">
+                      <v-btn v-show="index > 0"
+                        @click="ingredientRows.splice(index, 1)" 
+                      >
+                        <v-icon class="mr-2">mdi-delete</v-icon>
+                      </v-btn>
+                      <v-col>
+                        <v-text-field id="ingredients" class="-content pa-md-3" label="ingredients">  </v-text-field>
+                      </v-col>
+                      <v-col sm="4" md="3">
+                        <v-select
+                          :items="items"
+                          solo
+                          small-chips
+                          style="width: 35vw"
+                          label="Type"
+                          class="pa-md-3 mr-sm-1"
+                          :v-model="colorPick()"
+                          id="items"
+                        >
+                        </v-select>
+                      </v-col>
+                    </v-row>
+                    <v-row>
+                      <v-btn
+                        class="ma-md-3"
+                        @click="addRow()" 
+                      >
+                        <v-icon>mdi-plus</v-icon>
+                      </v-btn>
+                    </v-row>
+
+
+
                   <v-row  id="description-container" class="d-flex flex-center flex-start" align="center">
                     <v-col>
                   <v-textarea label="Description" outlined class="mt-3"> </v-textarea>
@@ -112,7 +134,7 @@ import Vue from 'vue'
 import { Component } from 'vue-property-decorator'
 import axios from 'axios'
 import { number } from 'zod'
-import {Recipe} from '@/types'
+import {Recipe, Ingredients} from '@/types'
 import {mapMutations, mapState} from 'vuex'
 import RecipeCard from '@/components/RecipeCard.vue'
 import { data } from 'browserslist'
@@ -136,6 +158,15 @@ export default class RecipesPage extends Vue {
     this.pageLoading = false
     this.produceCalories()
   };
+  addRow(){
+    this.ingredientRows.push({
+      name: '',
+      description: '',
+      type: '',
+      cost: 0,
+    }) 
+    console.log(this.ingredientRows)
+  }
   // breakpoint method
   // beforeDestroy(){
   //   if (typeof window === "undefined") {
@@ -168,6 +199,14 @@ export default class RecipesPage extends Vue {
   pageLoading = true
   recipes: any = []
   search: string = ''
+  ingredientRows: Ingredients[] = [
+    {
+      name: '',
+      description: '',
+      type: '',
+      cost: 0,
+    }
+  ]
   cost = number
   items: any = ['Vegatable', 'Protein', 'Fruit', 'Dairy', 'Meat', 'Other']
   createRecipeForm: Recipe = {
