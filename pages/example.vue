@@ -11,13 +11,21 @@
         <v-btn @click="OPEN">OPEN</v-btn>
       </div>
     </v-row>
+    <v-row
+      v-for="item in cart"
+      :key="item"
+    >
+      {{item}}
+    </v-row>
   </div>
 </template>
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import { mapMutations, mapState, mapActions, mapGetters } from 'vuex';
-import { State, Mutation, Action } from 'vuex-class';
+import { State, Mutation, Action, namespace } from 'vuex-class';
+
+const cartModule = namespace('cart');
 
 @Component({
   methods: {
@@ -26,5 +34,7 @@ import { State, Mutation, Action } from 'vuex-class';
 })
 export default class ExamplePage extends Vue {
   @State recipeFormDialog!: boolean;
+
+  @cartModule.State cart!: string[];
 }
 </script>

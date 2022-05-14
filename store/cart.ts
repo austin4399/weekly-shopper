@@ -1,6 +1,21 @@
+import {GetterTree} from 'vuex';
+
+export type State = ReturnType<typeof state>
+
+
 export const state = () => ({
-    cart: []
+    cart: [
+        'item 1',
+        'item 2',
+        'item 3',
+    ]
 })
+
+export const getters: GetterTree<State, State> = {
+    getCart: (state) => {
+        return state.cart;
+    },
+  }
 
 export const mutations = {
     ADD_RECIPE(state, recipe) {
