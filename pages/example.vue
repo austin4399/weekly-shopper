@@ -1,36 +1,30 @@
 <template>
-  <div>
-    <span>
-      <v-btn
-        color="primary"
-        @click="CLOSE"
-      >
-        -
-      </v-btn>
-      {{$store.state.recipeFormDialog}}
-      <v-btn
-        color="primary"
-        @click="OPEN"
-      >
-        +
-      </v-btn>
-    </span>
+  <div class="pa-md-10 mx-md-10">
+    <v-row>
+      <div>
+        <v-btn @click="CLOSE">CLOSE</v-btn>
+      </div>
+      <div>
+        {{ recipeFormDialog }}
+      </div>
+      <div>
+        <v-btn @click="OPEN">OPEN</v-btn>
+      </div>
+    </v-row>
   </div>
 </template>
 
-<script lang='ts'>
+<script lang="ts">
+import { Component, Prop, Vue } from 'vue-property-decorator';
+import { mapMutations, mapState, mapActions, mapGetters } from 'vuex';
+import { State, Mutation, Action } from 'vuex-class';
 
-import {Component, Prop, Vue} from 'vue-property-decorator';
-import {mapMutations} from 'vuex';
-
-@Component({
-  methods: {
-    ...mapMutations([
-      'OPEN',
-      'CLOSE'
-    ])
-  }
-})
+@Component
 export default class ExamplePage extends Vue {
+  @State recipeFormDialog!: boolean;
+
+  @Mutation OPEN!: () => void;
+
+  @Mutation CLOSE!: () => void;
 }
 </script>
