@@ -6,14 +6,16 @@ export interface IngredientDocument extends Document {
     type: string;
     cost: number | null;
 }
-export interface RecipeInput {
-    title: string;
-    description: string;
-    ingredients: [IngredientDocument];
-}
+
 export interface RecipeDocument extends RecipeInput, Document {
     createdAt: Date;
     updatedAt: Date;
+}
+
+export type RecipeInput = {
+    title: string;
+    description: string;
+    ingredients: [IngredientDocument];
 }
 
 export type Ingredients = {

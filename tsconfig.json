@@ -1,24 +1,35 @@
 {
   "compilerOptions": {
-    "target": "ESNEXT",
-    "module": "ESNext",
-    "moduleResolution": "Node",
+    "target": "esnext",
+    "module": "esnext",
+    "moduleResolution": "node",
     "importHelpers": true,
-    "lib": ["ESNext", "ESNext.AsyncIterable", "DOM"],
     "esModuleInterop": true,
     "allowJs": true,
+    "skipLibCheck": true,
     "sourceMap": true,
     "strict": true,
     "noEmit": true,
     "experimentalDecorators": true,
     "allowSyntheticDefaultImports": true,
     "baseUrl": ".",
+    "types": [
+      "@nuxt/types",
+      "@nuxtjs/axios",
+      "@types/node",
+      "@nuxtjs/vuetify",
+      "@nuxt/vue-app",
+      "jest"
+    ],
     "paths": {
-      "~/*": ["./*"],
       "@/*": ["./*"]
     },
-    "types": ["@nuxt/types", "@nuxtjs/axios", "@types/node","@nuxtjs/vuetify","@nuxt/vue-app",]
+    "lib": ["esnext", "dom", "dom.iterable"]
   },
-  "include": ["*.vue", "*.ts"],
-  "exclude": ["node_modules", ".nuxt", "dist"]
+  "include": [
+    "**/*.ts",
+    "**/*.vue",
+    "tests/**/*.ts",
+  ],
+  "exclude": ["node_modules", ".nuxt", "dist", "**/*.spec.ts"]
 }
