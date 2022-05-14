@@ -19,12 +19,12 @@ import { Component, Prop, Vue } from 'vue-property-decorator';
 import { mapMutations, mapState, mapActions, mapGetters } from 'vuex';
 import { State, Mutation, Action } from 'vuex-class';
 
-@Component
+@Component({
+  methods: {
+    ...mapMutations(['OPEN', 'CLOSE']),
+  },
+})
 export default class ExamplePage extends Vue {
   @State recipeFormDialog!: boolean;
-
-  @Mutation OPEN!: () => void;
-
-  @Mutation CLOSE!: () => void;
 }
 </script>
