@@ -66,15 +66,12 @@ import { data } from 'browserslist'
 import { State, namespace} from 'vuex-class'
 import RecipeFormDialog from '@/components/RecipeFormDialog.vue'
 
+const recipesModule = namespace('recipes')
+
 @Component({
   components: {
     RecipeCard,
     RecipeFormDialog
-  },
-  data() {
-    return {
-      isMobile: false,
-    }
   },
   methods: {
     ...mapMutations(['OPEN', 'CLOSE']),
@@ -82,59 +79,15 @@ import RecipeFormDialog from '@/components/RecipeFormDialog.vue'
 })
 export default class RecipesPage extends Vue {
   mounted() {
-    this.getRecipe()
+    this.$store.dispatch('recipes/getRecipes')
     this.pageLoading = false
-    this.produceCalories()
   }
-  // breakpoint method
-  // beforeDestroy(){
-  //   if (typeof window === "undefined") {
-  //     window.removeEventListener("resize", this.onResize, {passive:  true})
-  //   }
-  // };
 
-  dialogState: boolean = false
   pageLoading = true
-  recipes: any = []
-  search: string = ''
-  cost = number
-  async getRecipe(): Promise<void> {
-    try {
-      const endpoint = '/api/v1/recipe'
-      const response = await axios.get(endpoint)
-      this.recipes = response.data
-      console.log(response.data)
-    } catch (error) {
-      console.log(error)
-    }
-  }
 
-  async produceCalories(): Promise<void> {
-    try {
-      const res = await axios
-        .get('https://api.edamam.com/api/food-database/v2/parser', {
-          params: {
-            app_id: 'a477c607',
-            app_key: 'b3d03a0454201b92de94a5a6165da6bc',
-            ingr: `${this.recipes.title}`,
-            nutritiontype: 'logging',
-            category: 'generic-foods',
-            calories: '0-700',
-          },
-          data: {},
-          headers: {
-            Accept: 'application/json',
-            'Access-Control': 'Allow-Origin',
-            status: 200,
-          },
-        })
-        .then((data) => {
-          console.log(data)
-        })
-    } catch (Error) {
-      console.log(Error)
-    }
-  }
+  @recipesModule.State recipes!: Recipe[];
+  search: string = ''
+  cost!: number;
 }
 </script>
 
