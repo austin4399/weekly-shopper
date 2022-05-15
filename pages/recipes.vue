@@ -56,7 +56,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { Component } from 'vue-property-decorator'
+import { Component, Watch } from 'vue-property-decorator'
 import axios from 'axios'
 import { number } from 'zod'
 import { Recipe } from '@/types'
@@ -86,6 +86,11 @@ export default class RecipesPage extends Vue {
   pageLoading = true
 
   @recipesModule.State recipes!: Recipe[];
+  @Watch('recipes')
+  onRecipesChange(newValue: Recipe[]): void {
+    this.$store.commit('CLOSE')
+    console.log(newValue)
+  }
   search: string = ''
   cost!: number;
 }
