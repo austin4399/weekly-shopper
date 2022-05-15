@@ -15,6 +15,9 @@ export const getters: GetterTree<State, State> = {
     getCart: (state) => {
         return state.cart;
     },
+    recipeIsInCart: (state) => (recipeId) => {
+        return state.cart.includes(recipeId);
+    }
   }
 
 export const mutations = {
