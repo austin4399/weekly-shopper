@@ -35,103 +35,7 @@
             </v-row>
           </template>
         </v-data-iterator>
-        <v-container class="d-flex flex-center" fluid>
-          <v-dialog class="" v-model="dialogState">
-            <v-card class="">
-              <v-card-title class="pa-md-3 d-flex flex-center" align="center">
-                Add a recipe
-              </v-card-title>
-              <v-form>
-                <v-row class="ma-md-3">
-                  <v-text-field
-                    label="Recipe Name"
-                    class="pa-md-3"
-                    id="ingredients"
-                    v-model="createRecipeForm.title"
-                  />
-                </v-row>
-
-                <v-row
-                  v-for="(value, index) in createRecipeForm.ingredients"
-                  :key="value"
-                  class="ma-md-3"
-                  id="ingredient-row"
-                >
-                  <v-btn
-                    v-show="index > 0"
-                    @click="createRecipeForm.ingredients.splice(index, 1)"
-                  >
-                    <v-icon class="mr-2">mdi-delete</v-icon>
-                  </v-btn>
-                  <v-col>
-                    <v-text-field
-                      id="ingredients"
-                      class="-content pa-md-3"
-                      label="ingredients"
-                      v-model="createRecipeForm.ingredients[index].name"
-                    >
-                    </v-text-field>
-                  </v-col>
-                  <v-col sm="4" md="3">
-                    <v-select
-                      :items="items"
-                      solo
-                      small-chips
-                      style="width: 35vw"
-                      label="Type"
-                      class="pa-md-3 mr-sm-1"
-                      v-model="createRecipeForm.ingredients[index].type"
-                      id="items"
-                    >
-                    </v-select>
-                  </v-col>
-                </v-row>
-                <v-row>
-                  <v-btn class="ma-md-3" @click="addRow()">
-                    <v-icon>mdi-plus</v-icon>
-                  </v-btn>
-                </v-row>
-
-                <v-row
-                  id="description-container"
-                  class="d-flex flex-center flex-start"
-                  align="center"
-                >
-                  <v-col>
-                    <v-textarea
-                      label="Description"
-                      outlined
-                      class="mt-3"
-                      v-model="createRecipeForm.description"
-                    />
-                    <v-rating hover size="18">
-                      <template v-slot:item="props">
-                        <v-icon large @click="props.click">
-                          {{
-                            props.isFilled
-                              ? 'mdi-bread-slice'
-                              : 'mdi-bread-slice-outline'
-                          }}
-                        </v-icon>
-                      </template>
-                    </v-rating>
-                  </v-col>
-                </v-row>
-                <v-row
-                  id="btn-container"
-                  class="ma-sm-2 pa-sm-2 justify-space-between"
-                >
-                  <v-col>
-                    <v-btn @click="submitForm()"> Submit </v-btn>
-                  </v-col>
-                  <v-col>
-                    <v-btn @click="dialogState = false">Cancel</v-btn>
-                  </v-col>
-                </v-row>
-              </v-form>
-            </v-card>
-          </v-dialog>
-        </v-container>
+        <RecipeFormDialog/>
       </v-card>
       <v-btn
         id="floating-action-button"
@@ -139,7 +43,7 @@
         bottom
         right
         fixed
-        @click="dialogState = true"
+        @click="OPEN"
       >
         <v-icon> mdi-plus </v-icon>
       </v-btn>
@@ -159,10 +63,13 @@ import { Recipe } from '@/types'
 import { mapMutations, mapState } from 'vuex'
 import RecipeCard from '@/components/RecipeCard.vue'
 import { data } from 'browserslist'
+import { State, namespace} from 'vuex-class'
+import RecipeFormDialog from '@/components/RecipeFormDialog.vue'
 
 @Component({
   components: {
     RecipeCard,
+    RecipeFormDialog
   },
   data() {
     return {
@@ -179,18 +86,6 @@ export default class RecipesPage extends Vue {
     this.pageLoading = false
     this.produceCalories()
   }
-  addRow() {
-    this.createRecipeForm.ingredients.push({
-      name: '',
-      description: '',
-      type: '',
-      cost: 5,
-    })
-  }
-  async submitForm() {
-    const response = await axios.post('/api/v1/recipe', this.createRecipeForm)
-    console.log(response)
-  }
   // breakpoint method
   // beforeDestroy(){
   //   if (typeof window === "undefined") {
@@ -198,45 +93,11 @@ export default class RecipesPage extends Vue {
   //   }
   // };
 
-  // isMobile apart of breakpoint
-  colorPick(): any {
-    if (this.items == 'Vegatables') {
-      this.items.style.backgroundColor = 'green'
-    }
-    if (this.items == 'Protein') {
-      this.items.style.backgroundColor = 'red'
-    }
-    if (this.items == 'Fruit') {
-      this.items.style.backgroundColor = 'orange'
-    }
-    if (this.items == 'Dairy') {
-      this.items.style.backgroundColor = 'white'
-    }
-    if (this.items == 'Meat') {
-      this.items.style.backgroundColor = 'red'
-    }
-    if (this.items == 'Other') {
-      this.items.style.backgroundColor = 'grey'
-    }
-  }
   dialogState: boolean = false
   pageLoading = true
   recipes: any = []
   search: string = ''
   cost = number
-  items: any = ['Vegatable', 'Protein', 'Fruit', 'Dairy', 'Meat', 'Other']
-  createRecipeForm: Recipe = {
-    title: '',
-    description: '',
-    ingredients: [
-      {
-        name: '',
-        description: '',
-        type: '',
-        cost: 0,
-      },
-    ],
-  }
   async getRecipe(): Promise<void> {
     try {
       const endpoint = '/api/v1/recipe'
@@ -248,18 +109,6 @@ export default class RecipesPage extends Vue {
     }
   }
 
-  async createRecipe(): Promise<void> {
-    try {
-      const endpoint = '/api/v1/recipe'
-      const response = await axios.post(endpoint, this.createRecipeForm)
-      if (response.status == 200) {
-        this.dialogState = false
-        this.getRecipe()
-      }
-    } catch (error) {
-      console.log(error)
-    }
-  }
   async produceCalories(): Promise<void> {
     try {
       const res = await axios
