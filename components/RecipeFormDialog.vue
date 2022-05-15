@@ -86,7 +86,7 @@
                   class="ma-sm-2 pa-sm-2 justify-space-between"
                 >
                   <v-col>
-                    <v-btn @click="createRecipe();"> Submit </v-btn>
+                    <v-btn @click="addRecipe(createRecipeForm)"> Submit </v-btn>
                   </v-col>
                   <v-col>
                     <v-btn @click="CLOSE">Cancel</v-btn>
@@ -101,13 +101,14 @@
 <script lang='ts'>
 
 import {Component, Prop, Vue} from 'vue-property-decorator';
-import { mapMutations } from 'vuex';
+import { mapMutations, mapActions } from 'vuex';
 import {State, namespace } from 'vuex-class';
 import {Recipe} from '@/types';
 import axios from 'axios';
 
 @Component({methods: {
     ...mapMutations(['CLOSE']),
+    ...mapActions('recipes', ['addRecipe']),
 }})
 export default class RecipeFormDialog extends Vue {
     @State recipeFormDialog!: boolean;
@@ -132,19 +133,5 @@ export default class RecipeFormDialog extends Vue {
     })
   }
   items: any = ['Vegatable', 'Protein', 'Fruit', 'Dairy', 'Meat', 'Other']
-
-
-  async createRecipe(): Promise<void> {
-    try {
-      const endpoint = '/api/v1/recipe'
-      const response = await axios.post(endpoint, this.createRecipeForm)
-      if (response.status == 200) {
-        this.$store.commit('CLOSE')
-        // this.getRecipe()
-      }
-    } catch (error) {
-      console.log(error)
-    }
-  }
 }
 </script>
