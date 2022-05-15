@@ -1,5 +1,13 @@
 <template>
   <div>
+    <v-row v-show="alert == true" id="success-alert">
+      <v-alert
+        type="success"
+      ></v-alert>
+    </v-row>
+    <v-btn
+      @click="showAlert()"
+    ></v-btn>
     <div v-if="pageLoading == false" class="pa-md-4 mx-lg-auto">
       <v-card class="pa-md-4 mx-lg-auto grey lighten-3">
         <v-card-title>
@@ -89,10 +97,15 @@ export default class RecipesPage extends Vue {
   @Watch('recipes')
   onRecipesChange(newValue: Recipe[]): void {
     this.$store.commit('CLOSE')
-    console.log(newValue)
+    console.log(newValue[newValue.length -1].title)
   }
   search: string = ''
   cost!: number;
+  alert = false;
+  showAlert(){
+    this.alert = true
+    setTimeout(() => {  this.alert = false; }, 3000);
+  } 
 }
 </script>
 
@@ -105,6 +118,9 @@ export default class RecipesPage extends Vue {
 }
 #btn-container {
   display: inline;
+}
+#success-alert{
+  position: absolute;
 }
 @media screen and (max-width: 700px) {
   .form-card {
