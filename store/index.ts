@@ -52,20 +52,16 @@ export const actions = {
 export const mutations: MutationTree<State> = {
   OPEN (state: State): void {
     state.recipeFormDialog = true
-    console.log('OPENED')
   },
   CLOSE (state: State): void {
     state.recipeFormDialog = false
-    console.log('CLOSED')
   },
   SHOW_ALERT (state: State, message: string): void {
     state.alert = true
     state.alertMessage = message
-    console.log('ALERT')
   },
   HIDE_ALERT (state: State): void {
     state.alert = false
-    console.log('HIDE')
   }
 }
 // mutation is the ONLY way to modify state

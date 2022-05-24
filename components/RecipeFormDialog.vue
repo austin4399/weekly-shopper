@@ -17,7 +17,7 @@
 
           <v-row
             v-for="(value, index) in createRecipeForm.ingredients"
-            :key="value"
+            :key="index"
             class="ma-md-3"
             id="ingredient-row"
           >

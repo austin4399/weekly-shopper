@@ -94,7 +94,6 @@ export default class RecipesPage extends Vue {
   @Watch('recipes')
   onRecipesChange(newValue: Recipe[]): void {
     this.$store.commit('CLOSE')
-    console.log(newValue[newValue.length -1].title)
   }
   search: string = ''
   cost!: number;

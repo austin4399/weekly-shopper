@@ -30,7 +30,6 @@ export const mutations = {
 export const actions = {
     async getRecipes(context: ActionContext<State, State>) {
         const response = await axios.get('api/v1/recipe');
-        console.log(response.data);
         context.commit('GET_RECIPES', response.data);
     },
     async addRecipe(context: ActionContext<State, State>, recipe: Recipe) {
