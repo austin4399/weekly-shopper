@@ -11,7 +11,6 @@
 <script lang='ts'>
 
 import {Component, Prop, Vue, Watch} from 'vue-property-decorator';
-import {mapState} from 'vuex';
 import {State} from 'vuex-class';
 
 @Component({
