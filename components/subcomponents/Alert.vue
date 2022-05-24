@@ -3,7 +3,7 @@
       <v-alert
         type="success"
       >
-        Recipe added!
+        {{ alertMessage }}
       </v-alert>
     </v-row>
 </template>
@@ -18,6 +18,7 @@ import {State} from 'vuex-class';
 })
 export default class Alert extends Vue {
     @State alert!: boolean;
+    @State alertMessage! :string;
     @Watch('alert')
     onStateChange(newValue: boolean): void {
         setTimeout(() => {  this.$store.commit('HIDE_ALERT')}, 3000);

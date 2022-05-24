@@ -13,6 +13,7 @@ export type State = ReturnType<typeof state>
 export const state = () => ({
   recipeFormDialog: false,
   alert: false,
+  alertMessage: '',
 })
 
 // getters
@@ -58,8 +59,9 @@ export const mutations: MutationTree<State> = {
     state.recipeFormDialog = false
     console.log('CLOSED')
   },
-  SHOW_ALERT (state: State): void {
+  SHOW_ALERT (state: State, message: string): void {
     state.alert = true
+    state.alertMessage = message
     console.log('ALERT')
   },
   HIDE_ALERT (state: State): void {

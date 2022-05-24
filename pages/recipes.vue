@@ -2,7 +2,7 @@
   <div>
     <Alert/>
     <v-btn
-      @click="SHOW_ALERT"
+      @click="SHOW_ALERT('Hello World!')"
     ></v-btn>
     <div v-if="pageLoading == false" class="pa-md-4 mx-lg-auto">
       <v-card class="pa-md-4 mx-lg-auto grey lighten-3">
