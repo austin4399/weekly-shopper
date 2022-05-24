@@ -33,8 +33,8 @@
                         </v-list-item-content>
                         <v-list-item-content
                             class="align-end black--text"
-                            v-for="ingredient in recipe.ingredients"
-                            :key="ingredient"
+                            v-for="(ingredient, index) in recipe.ingredients"
+                            :key="index"
                         >
                             <v-list-item-title>
                                 <v-icon> mdi-circle-small </v-icon>
