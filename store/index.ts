@@ -39,9 +39,8 @@ export const actions = {
   closeRecipeFormDialog(context: ActionContext<State, State>): void {
     context.commit('CLOSE')
   },
-  showAlert(context: ActionContext<State, State>): void {
-    context.commit('SHOW_ALERT')
-    console.log('Action continued');
+  showAlert(context: ActionContext<State, State>, message: string): void {
+    context.commit('SHOW_ALERT', message)
   }
 }
 

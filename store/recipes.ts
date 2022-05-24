@@ -38,6 +38,7 @@ export const actions = {
             const response = await axios.post('api/v1/recipe', recipe);
             if (response.status === 200) {
                 context.commit('ADD_RECIPE', response.data);
+                context.dispatch('showAlert', response.data.title, { root: true });
             }
         } catch (error) {
             console.log(error);
