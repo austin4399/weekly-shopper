@@ -5,7 +5,9 @@
                 <v-row>
                     {{ recipe.title }}
                     <v-spacer></v-spacer>
-                    <v-btn small rounded fab elevation="1" color="primary">
+                    <v-btn small rounded fab elevation="1" color="primary"
+                        @click="TEST(recipe)"
+                    >
                         <v-icon> mdi-pencil </v-icon>
                     </v-btn>
                 </v-row>
@@ -51,12 +53,20 @@
 
 <script lang="ts">
 import {Component, Prop, Vue} from 'vue-property-decorator';
+import {mapMutations} from 'vuex';
+import {Mutation, namespace} from 'vuex-class';
 import {Recipe} from '@/types'
+
+const recipeModule = namespace('recipes');
 
 @Component({
     props: {
         recipe: {type: Object as () => Recipe, required: true}
     },
+    methods: {
+        ...mapMutations('recipes', ['UPDATE_RECIPE']),
+    },
 })
-export default class RecipeCard extends Vue {}
+export default class RecipeCard extends Vue {
+}
 </script>

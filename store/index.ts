@@ -12,6 +12,7 @@ export type State = ReturnType<typeof state>
 // It is stored in RAM
 export const state = () => ({
   recipeFormDialog: false,
+  alert: false,
 })
 
 // getters
@@ -21,7 +22,7 @@ export const state = () => ({
 export const getters: GetterTree<State, State> = {
   getRecipeFormDialogState: (state) => {
       return state.recipeFormDialog
-  },
+  }
 }
 
 // actions
@@ -37,6 +38,10 @@ export const actions = {
   closeRecipeFormDialog(context: ActionContext<State, State>): void {
     context.commit('CLOSE')
   },
+  showAlert(context: ActionContext<State, State>): void {
+    context.commit('SHOW_ALERT')
+    console.log('Action continued');
+  }
 }
 
 // mutations
@@ -53,6 +58,14 @@ export const mutations: MutationTree<State> = {
     state.recipeFormDialog = false
     console.log('CLOSED')
   },
+  SHOW_ALERT (state: State): void {
+    state.alert = true
+    console.log('ALERT')
+  },
+  HIDE_ALERT (state: State): void {
+    state.alert = false
+    console.log('HIDE')
+  }
 }
 // mutation is the ONLY way to modify state
 // mutation doesn't care about business logic, it just cares about "state"

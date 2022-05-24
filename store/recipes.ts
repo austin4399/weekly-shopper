@@ -2,6 +2,7 @@ import {Recipe} from '@/types';
 import { GetterTree, ActionContext, MutationTree } from 'vuex'
 
 import axios from 'axios';
+import { mdiConsoleLine } from '@mdi/js';
 export type State = ReturnType<typeof state>
 
 
@@ -19,6 +20,10 @@ export const mutations = {
     },
     ADD_RECIPE(state, recipe) {
         state.recipes.push(recipe);
+    },
+    UPDATE_RECIPE(state, recipe){
+        const index = state.recipes.findIndex(r => r._id === recipe._id);
+        // state.recipes.splice(index, 1, recipe);
     }
 }
 
