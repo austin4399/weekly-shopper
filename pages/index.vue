@@ -4,7 +4,15 @@
     class="main-container"
     style="height: 100%; position: relative; padding-top: 0%;"
   >
+    <!-- <v-card>
+      <v-card-title>
+        <v-row>
+          {{randomRecipedata}}
+        </v-row>
+      </v-card-title>
+    </v-card> -->
   <HomeParallax> </HomeParallax>
+
   </v-main>
 </template>
 <style>
@@ -32,6 +40,7 @@ import axios from 'axios'
 import Vue from 'vue'
 import { Component } from 'vue-property-decorator'
 import HomeParallax from '../components/HomeParallax.vue'
+import RecipeCard from '@components/RecipeCard.vue';
 @Component({
   components: {
     HomeParallax,
@@ -41,11 +50,14 @@ export default class IndexPage extends Vue {
   sheet: boolean = false
   mounted() {
     produceCalories()
+    randomRecipe()
+
   }
 }
 
 //  outside of class
 // still waiting on new api-key
+
 async function produceCalories() {
   try {
     const res = await axios
@@ -72,5 +84,19 @@ async function produceCalories() {
     console.log(Error)
   }
   // sheet: boolean = false;
+}
+
+const randomRecipedata: any  = [{}]
+async function randomRecipe(){
+  try{
+    const response = await axios.get('api/v1/random');
+    const randomRecData = response.data.push(randomRecipedata)
+    if (response.status == 200){
+      console.log('sucess!')
+      console.log(randomRecipedata)
+    }
+  }
+  catch(error){
+  }
 }
 </script>
