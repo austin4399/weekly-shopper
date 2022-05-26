@@ -4,15 +4,15 @@
     class="main-container"
     style="height: 100%; position: relative; padding-top: 0%;"
   >
-    <!-- <v-card>
-      <v-card-title>
-        <v-row>
-          {{randomRecipedata}}
-        </v-row>
-      </v-card-title>
-    </v-card> -->
   <HomeParallax> </HomeParallax>
-
+  <v-card v-show="activator == true" id="card">
+    <v-card-title>
+      <h1>
+        {{this.recipeData.title}}
+      </h1>
+    </v-card-title>
+  </v-card>
+  <v-btn @click="activator = true"> Get a random recipe </v-btn>
   </v-main>
 </template>
 <style>
@@ -48,55 +48,32 @@ import RecipeCard from '@components/RecipeCard.vue';
 })
 export default class IndexPage extends Vue {
   sheet: boolean = false
+  activator: boolean = false
+  recipeData: Object = {}
+  computed: any = {
+    randomRecipe(){
+      this.recipeData[0]
+      console.log(this.recipeData)
+    }
+  }
   mounted() {
-    produceCalories()
-    randomRecipe()
-
+    this.randomRecipe()
   }
-}
 
-//  outside of class
-// still waiting on new api-key
-
-async function produceCalories() {
-  try {
-    const res = await axios
-      .get('https://api.edamam.com/api/food-database/v2/parser', {
-        params: {
-          app_id: 'a477c607',
-          app_key: 'b3d03a0454201b92de94a5a6165da6bc',
-          ingr: 'bacon',
-          nutritiontype: 'logging',
-          category: 'generic-foods',
-          calories: '0-700',
-        },
-        data: {},
-        headers: {
-          Accept: 'application/json',
-          'Access-Control': 'Allow-Origin',
-          status: 200,
-        },
-      })
-      .then((data) => {
-        console.log(data)
-      })
-  } catch (Error) {
-    console.log(Error)
-  }
-  // sheet: boolean = false;
-}
-
-const randomRecipedata: any  = [{}]
-async function randomRecipe(){
+  async randomRecipe(): Promise<void>{
   try{
     const response = await axios.get('api/v1/random');
-    const randomRecData = response.data.push(randomRecipedata)
+    const randomHolder = response.data
     if (response.status == 200){
+      randomHolder.push(this.recipeData)
       console.log('sucess!')
-      console.log(randomRecipedata)
+      console.log(this.recipeData)
     }
   }
   catch(error){
   }
 }
+}
+
+
 </script>
