@@ -118,7 +118,7 @@ import { Component, Watch } from 'vue-property-decorator'
 import { Recipe } from '@/types'
 import { mapMutations, mapState } from 'vuex'
 import RecipeCard from '@/components/RecipeCard.vue'
-import { State, namespace} from 'vuex-class'
+import { State, namespace } from 'vuex-class'
 import RecipeFormDialog from '@/components/RecipeFormDialog.vue'
 import Alert from '@/components/subcomponents/Alert.vue'
 const recipesModule = namespace('recipes')
@@ -127,7 +127,7 @@ const recipesModule = namespace('recipes')
   components: {
     RecipeCard,
     RecipeFormDialog,
-    Alert
+    Alert,
   },
   methods: {
     ...mapMutations(['OPEN', 'CLOSE', 'SHOW_ALERT']),
@@ -141,33 +141,23 @@ export default class RecipesPage extends Vue {
 
   pageLoading = true
 
-  @recipesModule.State recipes!: Recipe[];
+  @recipesModule.State recipes!: Recipe[]
 
-<<<<<<< HEAD
-
-
-  @Watch('recipes')
-  onRecipesChange(newValue: Recipe[]): void {
-    this.$store.commit('CLOSE')
-=======
   async createRecipe(): Promise<void> {
     try {
       const endpoint = '/api/v1/recipe'
       const response = await axios.post(endpoint, this.createRecipeForm)
-      if(response.status == 200){
+      if (response.status == 200) {
         this.dialogState = false
         this.getRecipe()
       }
     } catch (error) {
       console.log(error)
     }
-
->>>>>>> parent of f11c7e6 (added some more inputs switched layout of button)
   }
   search: string = ''
-  cost!: number;
-  alert = false;
-
+  cost!: number
+  alert = false
 }
 </script>
 
