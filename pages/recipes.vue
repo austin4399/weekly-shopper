@@ -38,6 +38,7 @@
           </template>
         </v-data-iterator>
         <RecipeFormDialog />
+        <EditRecipeFormDialog />
       </v-card>
       <v-btn id="floating-action-button" fab bottom right fixed @click="OPEN">
         <v-icon> mdi-plus </v-icon>
@@ -58,12 +59,14 @@ import RecipeCard from '@/components/RecipeCard.vue'
 import { State, namespace } from 'vuex-class'
 import RecipeFormDialog from '@/components/RecipeFormDialog.vue'
 import Alert from '@/components/subcomponents/Alert.vue'
+import EditRecipeFormDialog from '@/components/EditRecipeFormDialog.vue'
 const recipesModule = namespace('recipes')
 
 @Component({
   components: {
     RecipeCard,
     RecipeFormDialog,
+    EditRecipeFormDialog,
     Alert,
   },
   methods: {

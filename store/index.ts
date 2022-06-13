@@ -3,7 +3,6 @@
 // A module requires all objects (State, Getters, Mutations, Actions) to be valid
 import { GetterTree, ActionContext, MutationTree } from 'vuex'
 
-
 export type State = ReturnType<typeof state>
 
 // state
@@ -12,6 +11,7 @@ export type State = ReturnType<typeof state>
 // It is stored in RAM
 export const state = () => ({
   recipeFormDialog: false,
+  editRecipeFormDialog: false,
   alert: false,
   alertMessage: '',
 })
@@ -22,8 +22,8 @@ export const state = () => ({
 // Typically used to retrieve complex data which requires some 'calculation'
 export const getters: GetterTree<State, State> = {
   getRecipeFormDialogState: (state) => {
-      return state.recipeFormDialog
-  }
+    return state.recipeFormDialog
+  },
 }
 
 // actions
@@ -39,9 +39,12 @@ export const actions = {
   closeRecipeFormDialog(context: ActionContext<State, State>): void {
     context.commit('CLOSE')
   },
+  openEditRecipeFormDialog(context: ActionContext<State, State>): void {
+    context.commit('OPEN_EDIT')
+  },
   showAlert(context: ActionContext<State, State>, message: string): void {
     context.commit('SHOW_ALERT', message)
-  }
+  },
 }
 
 // mutations
@@ -50,22 +53,28 @@ export const actions = {
 // These are SYNCHRONOUS tasks -- meaning they block the application thread.
 // Should only be used for simple tasks or 'mutations'.
 export const mutations: MutationTree<State> = {
-  OPEN (state: State): void {
+  OPEN(state: State): void {
     state.recipeFormDialog = true
   },
-  CLOSE (state: State): void {
+  CLOSE(state: State): void {
     state.recipeFormDialog = false
   },
-  SHOW_ALERT (state: State, message: string): void {
+  OPEN_EDIT(state: State): void {
+    state.editRecipeFormDialog = true
+  },
+  CLOSE_EDIT(state: State): void {
+    state.editRecipeFormDialog = false
+  },
+  SHOW_ALERT(state: State, message: string): void {
     state.alert = true
     state.alertMessage = message
   },
-  HIDE_ALERT (state: State): void {
+  HIDE_ALERT(state: State): void {
     state.alert = false
-  }
+  },
 }
 // mutation is the ONLY way to modify state
 // mutation doesn't care about business logic, it just cares about "state"
 // action is business logic
-// action can commit more than 1 mutation at a time, it just implements the business logic, 
+// action can commit more than 1 mutation at a time, it just implements the business logic,
 // it doesn't care about data changing (which is managed by mutation)
