@@ -23,14 +23,11 @@
       "jest"
     ],
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["./*"],
+      "~/*": ["./*"]
     },
     "lib": ["esnext", "dom", "dom.iterable"]
   },
-  "include": [
-    "**/*.ts",
-    "**/*.vue",
-    "tests/**/*.ts",
-  ],
+  "include": ["**/*.ts", "**/*.vue", "tests/**/*.ts"],
   "exclude": ["node_modules", ".nuxt", "dist", "**/*.spec.ts"]
 }
