@@ -143,17 +143,9 @@ export default class RecipesPage extends Vue {
 
   @recipesModule.State recipes!: Recipe[]
 
-  async createRecipe(): Promise<void> {
-    try {
-      const endpoint = '/api/v1/recipe'
-      const response = await axios.post(endpoint, this.createRecipeForm)
-      if (response.status == 200) {
-        this.dialogState = false
-        this.getRecipe()
-      }
-    } catch (error) {
-      console.log(error)
-    }
+  @Watch('recipes')
+  onRecipesChange(newValue: Recipe[]): void {
+    this.$store.commit('CLOSE')
   }
   search: string = ''
   cost!: number
