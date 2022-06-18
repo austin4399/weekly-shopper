@@ -6,7 +6,7 @@
           {{ recipe.title }}
           <v-spacer></v-spacer>
           <v-btn small rounded fab elevation="1" color="primary">
-            <v-icon @click="OPEN_EDIT"> mdi-pencil </v-icon>
+            <v-icon @click="editRecipe(recipe)"> mdi-pencil </v-icon>
           </v-btn>
         </v-row>
       </v-card-title>
@@ -49,7 +49,7 @@
 
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator'
-import { mapMutations } from 'vuex'
+import { mapMutations, mapActions } from 'vuex'
 import { Mutation, namespace } from 'vuex-class'
 import { Recipe } from '@/types'
 
@@ -60,7 +60,7 @@ const recipeModule = namespace('recipes')
     recipe: { type: Object as () => Recipe, required: true },
   },
   methods: {
-    ...mapMutations(['OPEN_EDIT']),
+    ...mapActions('recipes', ['editRecipe']),
   },
 })
 export default class RecipeCard extends Vue {}

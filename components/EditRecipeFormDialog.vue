@@ -1,29 +1,29 @@
 <template>
   <v-container class="d-flex flex-center" fluid>
-    <v-dialog class="" v-model="editRecipeFormDialog">
+    <v-dialog class="" v-model="editRecipeFormDialog" v-if="editRecipe">
       <v-card class="">
         <v-card-title class="pa-md-3 d-flex flex-center" align="center">
           Edit a recipe
         </v-card-title>
-        <v-form>
+        <v-form @submit.prevent="submitEdit(editRecipe)">
           <v-row class="ma-md-3">
             <v-text-field
               label="Recipe Name"
               class="pa-md-3"
               id="ingredients"
-              v-model="createRecipeForm.title"
+              :value="editRecipe.title"
             />
           </v-row>
 
           <v-row
-            v-for="(value, index) in createRecipeForm.ingredients"
+            v-for="(value, index) in editRecipe.ingredients"
             :key="index"
             class="ma-md-3"
             id="ingredient-row"
           >
             <v-btn
               v-show="index > 0"
-              @click="createRecipeForm.ingredients.splice(index, 1)"
+              @click="editRecipe.ingredients.splice(index, 1)"
             >
               <v-icon class="mr-2">mdi-delete</v-icon>
             </v-btn>
@@ -32,7 +32,7 @@
                 id="ingredients"
                 class="-content pa-md-3"
                 label="ingredients"
-                v-model="createRecipeForm.ingredients[index].name"
+                :value="editRecipe.ingredients[index].name"
               >
               </v-text-field>
             </v-col>
@@ -44,7 +44,7 @@
                 style="width: 35vw"
                 label="Type"
                 class="pa-md-3 mr-sm-1"
-                v-model="createRecipeForm.ingredients[index].type"
+                :value="editRecipe.ingredients[index].type"
                 id="items"
               >
               </v-select>
@@ -66,7 +66,7 @@
                 label="Description"
                 outlined
                 class="mt-3"
-                v-model="createRecipeForm.description"
+                :value="editRecipe.description"
               />
               <v-rating hover size="18">
                 <template v-slot:item="props">
@@ -86,7 +86,7 @@
             class="ma-sm-2 pa-sm-2 justify-space-between"
           >
             <v-col>
-              <v-btn @click="addRecipe(createRecipeForm)"> Submit </v-btn>
+              <v-btn @click="addRecipe(editRecipe)"> Submit </v-btn>
             </v-col>
             <v-col>
               <v-btn @click="CLOSE_EDIT">Cancel</v-btn>
@@ -103,36 +103,29 @@ import { Component, Prop, Vue } from 'vue-property-decorator'
 import { mapMutations, mapActions } from 'vuex'
 import { State, namespace } from 'vuex-class'
 import { Recipe } from '@/types'
-import axios from 'axios'
+// TO DO: Add get() and set() for each form property
+// for more info see the link below
+// https://vuex.vuejs.org/guide/forms.html
 
+const recipesModule = namespace('recipes')
 @Component({
   methods: {
-    ...mapMutations(['CLOSE_EDIT']),
-    ...mapActions('recipes', ['addRecipe']),
+    ...mapMutations('recipes', ['CLOSE_EDIT']),
+    ...mapActions('recipes', ['addRecipe', 'submitEdit']),
   },
 })
 export default class EditRecipeFormDialog extends Vue {
-  @State editRecipeFormDialog!: boolean
-  createRecipeForm: Recipe = {
-    title: '',
-    description: '',
-    ingredients: [
-      {
-        name: '',
-        description: '',
-        type: '',
-        cost: 0,
-      },
-    ],
-  }
-  addRow() {
-    this.createRecipeForm.ingredients.push({
-      name: '',
-      description: '',
-      type: '',
-      cost: 5,
-    })
-  }
+  @recipesModule.State editRecipeFormDialog!: boolean
+  @recipesModule.State editRecipe!: Recipe
+
+  // addRow() {
+  //   this.editRecipe.ingredients.push({
+  //     name: '',
+  //     description: '',
+  //     type: '',
+  //     cost: 5,
+  //   })
+  // }
   items: any = ['Vegatable', 'Protein', 'Fruit', 'Dairy', 'Meat', 'Other']
 }
 </script>
