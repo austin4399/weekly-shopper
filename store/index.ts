@@ -11,7 +11,6 @@ export type State = ReturnType<typeof state>
 // It is stored in RAM
 export const state = () => ({
   recipeFormDialog: false,
-  editRecipeFormDialog: false,
   alert: false,
   alertMessage: '',
 })
@@ -58,12 +57,6 @@ export const mutations: MutationTree<State> = {
   },
   CLOSE(state: State): void {
     state.recipeFormDialog = false
-  },
-  OPEN_EDIT(state: State): void {
-    state.editRecipeFormDialog = true
-  },
-  CLOSE_EDIT(state: State): void {
-    state.editRecipeFormDialog = false
   },
   SHOW_ALERT(state: State, message: string): void {
     state.alert = true
